@@ -1,0 +1,17 @@
+type File @model
+  @auth(
+    rules: [
+      # allow any signed-in user to crud records
+      { allow: owner }
+      # Admin users can access any operation.
+      { allow: groups, groups: ["Admins"] }
+    ]
+  ) {
+  id: ID!
+  fileName: String!
+  fileUploadTime: AWSDateTime!
+  description: String
+  contentType: String
+  userFirstName: String
+  userLastName: String
+}
