@@ -1,4 +1,4 @@
-# Sarinder Virk - Project#1 - CMPE 281
+# Sarinder Virk - Project#2 - CMPE 281
 
 This project frontend was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 The backend is all in AWS.
