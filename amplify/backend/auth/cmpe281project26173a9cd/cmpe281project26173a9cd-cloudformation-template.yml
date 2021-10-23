@@ -10,18 +10,6 @@ Parameters:
     Type: String
 
   
-  
-  
-  functioncmpe281project26173a9cdPostConfirmationArn:
-    Type: String
-    Default: functioncmpe281project26173a9cdPostConfirmationArn
-  
-  functioncmpe281project26173a9cdPostConfirmationName:
-    Type: String
-    Default: functioncmpe281project26173a9cdPostConfirmationName
-  
-  
-  
 
     
   identityPoolName:
@@ -174,10 +162,6 @@ Parameters:
   parentStack:
     Type: String
         
-  authTriggerConnections:
-    Type: String
-  
-            
   
   breakCircularDependency:
     Type: String

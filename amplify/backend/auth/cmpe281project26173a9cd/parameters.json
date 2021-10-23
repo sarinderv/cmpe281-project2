@@ -60,30 +60,17 @@
     ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "dependsOn": [
-        {
-            "category": "function",
-            "resourceName": "cmpe281project26173a9cdPostConfirmation",
-            "triggerProvider": "Cognito",
-            "attributes": [
-                "Arn",
-                "Name"
-            ]
-        }
-    ],
+    "dependsOn": [],
     "thirdPartyAuth": false,
     "userPoolGroups": true,
     "adminQueries": true,
-    "triggers": "{\n  \"PostConfirmation\": [\n    \"add-to-group\"\n  ]\n}",
+    "triggers": "{}",
     "hostedUI": false,
     "adminQueryGroup": "Admins",
     "parentStack": {
         "Ref": "AWS::StackId"
     },
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"cmpe281project26173a9cdPostConfirmation\"\n  }\n]",
     "breakCircularDependency": true,
-    "permissions": [
-        "{\n  \"policyName\": \"AddToGroupCognito\",\n  \"trigger\": \"PostConfirmation\",\n  \"effect\": \"Allow\",\n  \"actions\": [\n    \"cognito-idp:AdminAddUserToGroup\",\n    \"cognito-idp:GetGroup\",\n    \"cognito-idp:CreateGroup\"\n  ],\n  \"resource\": {\n    \"paramType\": \"!GetAtt\",\n    \"keys\": [\n      \"UserPool\",\n      \"Arn\"\n    ]\n  }\n}"
-    ],
+    "permissions": [],
     "authProviders": []
 }

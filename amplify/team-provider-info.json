@@ -24,12 +24,7 @@
         },
         "AdminQueriesf1ae536e": {
           "deploymentBucketName": "amplify-cmpe281project2-sampledev-201600-deployment",
-          "s3Key": "amplify-builds/AdminQueriesf1ae536e-4b374466455845376134-build.zip"
-        },
-        "cmpe281project26173a9cdPostConfirmation": {
-          "GROUP": "Users",
-          "deploymentBucketName": "amplify-cmpe281project2-sampledev-201600-deployment",
-          "s3Key": "amplify-builds/cmpe281project26173a9cdPostConfirmation-50337645644f2f586144-build.zip"
+          "s3Key": "amplify-builds/AdminQueriesf1ae536e-573171714e395a657a38-build.zip"
         }
       }
     }
