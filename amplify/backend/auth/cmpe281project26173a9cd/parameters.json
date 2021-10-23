@@ -26,13 +26,15 @@
     "userpoolClientWriteAttributes": [
         "family_name",
         "given_name",
+        "phone_number",
         "email"
     ],
     "userpoolClientReadAttributes": [
-        "email_verified",
         "email",
         "family_name",
-        "given_name"
+        "given_name",
+        "phone_number",
+        "email_verified"
     ],
     "userpoolClientLambdaRole": "cmpe286173a9cd_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": true,
