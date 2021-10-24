@@ -9,6 +9,12 @@
     },
     "env": {
       "Type": "String"
+    },
+    "deploymentBucketName": {
+      "Type": "String"
+    },
+    "s3Key": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -61,8 +67,12 @@
         "Layers": [],
         "Timeout": "1",
         "Code": {
-          "S3Bucket": "amplify-cfjwauth-dev-180800-deployment",
-          "S3Key": "amplify-builds/jwtauth-6d5174635a4c6f54386b-build.zip"
+          "S3Bucket": {
+            "Ref": "deploymentBucketName"
+          },
+          "S3Key": {
+            "Ref": "s3Key"
+          }
         }
       }
     },

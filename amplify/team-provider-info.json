@@ -25,6 +25,10 @@
         "AdminQueriesf1ae536e": {
           "deploymentBucketName": "amplify-cmpe281project2-sampledev-201600-deployment",
           "s3Key": "amplify-builds/AdminQueriesf1ae536e-573171714e395a657a38-build.zip"
+        },
+        "jwtauth": {
+          "deploymentBucketName": "amplify-cmpe281project2-sampledev-201600-deployment",
+          "s3Key": "amplify-builds/jwtauth-537157736f2f72353771-build.zip"
         }
       }
     }
