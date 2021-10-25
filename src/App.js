@@ -32,7 +32,7 @@ function App() {
   }
   Hub.listen('auth', listener);
 
-  const [userData, setUserData] = useState({ username: '' });
+  const [userData, setUserData] = useState({ payload: { username: '' } });
   const [files, setFiles] = useState([]);
   const [content, setContent] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
@@ -46,8 +46,8 @@ function App() {
   async function fetchUserData() {
     await Auth.currentAuthenticatedUser()
       .then((userSession) => {
-        console.log("userData: ", userSession.signInUserSession.accessToken.payload);
-        setUserData(userSession.signInUserSession.accessToken.payload);
+        console.log("userData: ", userSession);
+        setUserData(userSession.signInUserSession.accessToken);
       })
       .catch((e) => console.log("Not signed in", e));
   }
@@ -57,7 +57,7 @@ function App() {
       const apiData = await API.graphql({ query: listFiles });
       const filesFromAPI = apiData.data.listFiles.items;
       await Promise.all(filesFromAPI.map(async file => {
-        const content = await Storage.get(formData.fileName);
+        const content = await Storage.get(file.fileName);
         file.content = content;
         return file;
       }))
@@ -98,19 +98,19 @@ function App() {
   }
 
   function isAdmin() {
-    return userData['cognito:groups'] && userData['cognito:groups'][0] === "Admins";
+    return userData.payload['cognito:groups'] && userData.payload['cognito:groups'][0] === "Admins";
   }
 
   function userInfo() {
     return (
       <>
-        {userData.username} <div className="badge">{ isAdmin() ? "Admin" : "User"}</div>
+        {userData.payload.username} <div className="badge">{isAdmin() ? "Admin" : "User"}</div>
       </>
     );
   }
 
   // date formatter
-  const df = new Intl.DateTimeFormat('en-US', { dateStyle: 'short', timeStyle: 'short' }); 
+  const df = new Intl.DateTimeFormat('en-US', { dateStyle: 'short', timeStyle: 'short' });
 
   return (
     <div className="App">
