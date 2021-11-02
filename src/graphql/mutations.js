@@ -1,60 +1,111 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createFile = /* GraphQL */ `
-  mutation CreateFile(
-    $input: CreateFileInput!
-    $condition: ModelFileConditionInput
+export const createPatient = /* GraphQL */ `
+  mutation CreatePatient(
+    $input: CreatePatientInput!
+    $condition: ModelPatientConditionInput
   ) {
-    createFile(input: $input, condition: $condition) {
+    createPatient(input: $input, condition: $condition) {
       id
-      fileName
-      fileUploadTime
-      description
-      contentType
-      userFirstName
-      userLastName
+      firstName
+      lastName
+      insuranceNumber
+      ssn
+      birthDate
+      phone
+      address
+      sex
       createdAt
       updatedAt
-      owner
     }
   }
 `;
-export const updateFile = /* GraphQL */ `
-  mutation UpdateFile(
-    $input: UpdateFileInput!
-    $condition: ModelFileConditionInput
+export const updatePatient = /* GraphQL */ `
+  mutation UpdatePatient(
+    $input: UpdatePatientInput!
+    $condition: ModelPatientConditionInput
   ) {
-    updateFile(input: $input, condition: $condition) {
+    updatePatient(input: $input, condition: $condition) {
       id
-      fileName
-      fileUploadTime
-      description
-      contentType
-      userFirstName
-      userLastName
+      firstName
+      lastName
+      insuranceNumber
+      ssn
+      birthDate
+      phone
+      address
+      sex
       createdAt
       updatedAt
-      owner
     }
   }
 `;
-export const deleteFile = /* GraphQL */ `
-  mutation DeleteFile(
-    $input: DeleteFileInput!
-    $condition: ModelFileConditionInput
+export const deletePatient = /* GraphQL */ `
+  mutation DeletePatient(
+    $input: DeletePatientInput!
+    $condition: ModelPatientConditionInput
   ) {
-    deleteFile(input: $input, condition: $condition) {
+    deletePatient(input: $input, condition: $condition) {
       id
-      fileName
-      fileUploadTime
-      description
-      contentType
-      userFirstName
-      userLastName
+      firstName
+      lastName
+      insuranceNumber
+      ssn
+      birthDate
+      phone
+      address
+      sex
       createdAt
       updatedAt
-      owner
+    }
+  }
+`;
+export const createDoctor = /* GraphQL */ `
+  mutation CreateDoctor(
+    $input: CreateDoctorInput!
+    $condition: ModelDoctorConditionInput
+  ) {
+    createDoctor(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      phone
+      address
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateDoctor = /* GraphQL */ `
+  mutation UpdateDoctor(
+    $input: UpdateDoctorInput!
+    $condition: ModelDoctorConditionInput
+  ) {
+    updateDoctor(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      phone
+      address
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteDoctor = /* GraphQL */ `
+  mutation DeleteDoctor(
+    $input: DeleteDoctorInput!
+    $condition: ModelDoctorConditionInput
+  ) {
+    deleteDoctor(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      phone
+      address
+      createdAt
+      updatedAt
     }
   }
 `;

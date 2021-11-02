@@ -43,7 +43,7 @@
     }
   },
   "api": {
-    "fileapp": {
+    "cmpe281project2": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -57,28 +57,6 @@
           "additionalAuthenticationProviders": []
         }
       }
-    },
-    "AdminQueries": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "cmpe281project26173a9cd",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "AdminQueriesf1ae536e",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ]
     }
   },
   "function": {

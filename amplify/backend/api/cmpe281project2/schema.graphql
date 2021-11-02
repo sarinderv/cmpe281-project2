@@ -1,0 +1,19 @@
+type Patient @model {
+  id: ID!
+  firstName: String!
+  lastName: String
+  insuranceNumber: String
+  ssn: String
+  birthDate: AWSDateTime!
+  phone: String
+  address: String
+  sex: String
+}
+
+type Doctor @model {
+  id: ID!
+  firstName: String!
+  lastName: String
+  phone: String
+  address: String
+}

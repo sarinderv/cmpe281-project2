@@ -9,8 +9,7 @@
       "UnauthRoleName": "amplify-cmpe281project2-sampledev-201600-unauthRole",
       "StackName": "amplify-cmpe281project2-sampledev-201600",
       "StackId": "arn:aws:cloudformation:us-west-2:146838423249:stack/amplify-cmpe281project2-sampledev-201600/8efef650-33af-11ec-9086-0ad706c0f501",
-      "AmplifyAppId": "d1nw5p8f8q0l5s",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-cmpe281project2-sampledev-201600-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+      "AmplifyAppId": "d1nw5p8f8q0l5s"
     },
     "categories": {
       "auth": {
@@ -24,11 +23,11 @@
         },
         "AdminQueriesf1ae536e": {
           "deploymentBucketName": "amplify-cmpe281project2-sampledev-201600-deployment",
-          "s3Key": "amplify-builds/AdminQueriesf1ae536e-573171714e395a657a38-build.zip"
+          "s3Key": "amplify-builds/AdminQueriesf1ae536e-4b374466455845376134-build.zip"
         },
         "jwtauth": {
           "deploymentBucketName": "amplify-cmpe281project2-sampledev-201600-deployment",
-          "s3Key": "amplify-builds/jwtauth-537157736f2f72353771-build.zip"
+          "s3Key": "amplify-builds/jwtauth-356f3978522b4e65336f-build.zip"
         }
       }
     }
