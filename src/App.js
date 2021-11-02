@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Auth, Hub } from 'aws-amplify';
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import { withAuthenticator, AmplifySignOut, AmplifyS3Image } from '@aws-amplify/ui-react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import SideNav from './components/SideNav';
 
 // see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
-Storage.configure({ level: 'private' });
+
 
 function App() {
 
@@ -59,15 +58,9 @@ function App() {
 
   return (
     <div className="App">
-
-      <Router>
-        <SideNav />
-        <Switch>
-        </Switch>
-      </Router>
-
-      <hr />
+      <h1>CMPE281 Project#2</h1>
       { userInfo()}
+      <AmplifySignOut />
     </div>
   );
 }
