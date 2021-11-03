@@ -39,7 +39,7 @@
 
 .err {
   color: red;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
 }
 
 amplify-s3-image {
@@ -48,57 +48,59 @@ amplify-s3-image {
 }
 
 table {
-	margin: auto;
-	width: 600px;
-	border-collapse: collapse;
-	border: 1px solid #fff; /*for older IE*/
-	border-style: hidden;
+  margin: auto;
+  width: 600px;
+  border-collapse: collapse;
+  border: 1px solid #fff; /*for older IE*/
+  border-style: hidden;
 }
 
 table caption {
-	background-color: #ff9900;
-	color: #fff;
-	font-size: x-large;
-	font-weight: bold;
-	letter-spacing: .3em;
+  background-color: #1bacac;
+  color: #fff;
+  font-size: x-large;
+  font-weight: bold;
+  letter-spacing: 0.3em;
 }
 
 table thead th {
-	padding: 8px;
-	background-color: #ff9900;
+  padding: 8px;
+  background-color: #1bacac;
   font-size: large;
   color: white;
 }
 
-table th, table td {
-	padding: 10px;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #ff9900 #ccc;
+table th,
+table td {
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #1bacac #ccc;
 }
 
 table td {
-	text-align: right;
+  text-align: right;
 }
 
 table tbody th {
-	text-align: left;
-	font-weight: normal;
+  text-align: left;
+  font-weight: normal;
 }
 
 table tfoot {
-	font-weight: bold;
-	font-size: large;
-	background-color: #687886;
-	color: #fff;
+  font-weight: bold;
+  font-size: large;
+  background-color: #687886;
+  color: #fff;
 }
 
 table tr.even {
-	background-color: #fde9d9;
+  background-color: #fde9d9;
 }
 
-button, .badge {
-  background-color: #ff9900;
+button,
+.badge {
+  background-color: #1bacac;
   border: none;
   color: white;
   padding: 5px 3px;
@@ -106,4 +108,87 @@ button, .badge {
   text-decoration: none;
   display: inline-block;
   font-size: small;
+}
+
+.navbar {
+  background-color: #1bacac;
+  height: 80px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.navbar .title {
+  flex: 1;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.menu-bars {
+  color: white;
+  margin-left: 2rem;
+  font-size: 2rem;
+  background: none;
+}
+
+.nav-menu {
+  background-color: #1bacac;
+  width: 250px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  transition: 850ms;
+}
+
+.nav-menu.active {
+  left: 0;
+  transition: 350ms;
+}
+
+.nav-text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 0px 8px 16px;
+  list-style: none;
+  height: 60px;
+}
+
+.nav-text a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  width: 95%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 4px;
+}
+
+.nav-text a:hover {
+  background-color: #ffffff;
+  color: #1bacac;
+}
+
+.nav-menu-items {
+  width: 100%;
+}
+
+.navbar-toggle {
+  background-color: #1bacac;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+span {
+  margin-left: 16px;
 }

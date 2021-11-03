@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Auth, Hub } from 'aws-amplify';
-import { withAuthenticator, AmplifySignOut, AmplifyS3Image } from '@aws-amplify/ui-react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import SideNav from './components/SideNav';
+import Doctor from './pages/Doctor';
+import Patient from './pages/Patient';
 
 // see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
 
@@ -58,9 +61,17 @@ function App() {
 
   return (
     <div className="App">
-      <h1>CMPE281 Project#2</h1>
+
+      <Router>
+        <SideNav />
+        <Switch>
+          <Route path='/' exact component={Doctor} />
+          <Route path='/patient' component={Patient} />
+        </Switch>
+      </Router>
+
+      <hr />
       { userInfo()}
-      <AmplifySignOut />
     </div>
   );
 }
