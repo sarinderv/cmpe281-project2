@@ -85,7 +85,7 @@ export default function Doctor() {
                   onUpdated={() => getDoctorInfo(doctor.id)}
                   onHide={() => setUpdateModalShow(false)}
                 />
-            <h1>Patients</h1>
+            <h1>Appointments</h1>
         </div>
     );
 }
