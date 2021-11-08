@@ -49,13 +49,13 @@ function App() {
   }
 
   function isAdmin() {
-    return userData.payload['cognito:groups'] && userData.payload['cognito:groups'][0] === "Admins";
+    return userData.payload['cognito:groups'] && userData.payload['cognito:groups'][0] === "Doctor";
   }
 
   function userInfo() {
     return (
       <>
-        {userData.payload.username} <div className="badge">{isAdmin() ? "Admin" : "User"}</div>
+        {userData.payload.username} <div className="badge">{isAdmin() ? "Doctor" : "User"}</div>
       </>
     );
   }

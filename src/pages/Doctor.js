@@ -5,14 +5,16 @@ import { getDoctor } from '../graphql/queries';
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import UpdateDoctorModal from "./UpdateDoctorModal";
 
-function Doctor() {
+export default function Doctor() {
 
     const [userData, setUserData] = useState({ payload: { username: '' } });
     const [doctor, setDoctor] = useState({ });
     const [errorMessages, setErrorMessages] = useState([]);
     const history = useHistory();
-    const [addModalShow, setAddModalShow] = React.useState(false);
+    const [updateModalShow, setUpdateModalShow] = React.useState(false);
+    const [selectedDoctor, setSelectedDoctor] = useState([]);
 
     useEffect(() => {
       fetchUserData();
@@ -41,7 +43,9 @@ function Doctor() {
         }
       }
     
-    function updateDoctor(id) {
+    function openUpdateDoctorModal(doctor) {
+      setSelectedDoctor(doctor);
+      setUpdateModalShow(true);
     }
 
     return (
@@ -67,7 +71,7 @@ function Doctor() {
                               variant="success"
                               block
                               size="sm"
-                              onClick={() => updateDoctor(doctor.id)}
+                              onClick={() => openUpdateDoctorModal(doctor)}
                             >
                               Update
                             </Button>
@@ -75,8 +79,14 @@ function Doctor() {
                       </Row>
                     </Container>
               </div>
+              <UpdateDoctorModal
+                  show={updateModalShow}
+                  doctor={selectedDoctor}
+                  onUpdated={() => getDoctorInfo(doctor.id)}
+                  onHide={() => setUpdateModalShow(false)}
+                />
+            <h1>Patients</h1>
         </div>
     );
 }
 
-export default Doctor;
