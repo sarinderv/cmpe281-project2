@@ -91,3 +91,108 @@ export const onDeleteDoctor = /* GraphQL */ `
     }
   }
 `;
+export const onCreateAppointment = /* GraphQL */ `
+  subscription OnCreateAppointment {
+    onCreateAppointment {
+      id
+      patientId
+      doctorId
+      appointmentDate
+      appointmentTime
+      patient {
+        id
+        firstName
+        lastName
+        insuranceNumber
+        ssn
+        birthDate
+        phone
+        address
+        sex
+        createdAt
+        updatedAt
+      }
+      doctor {
+        id
+        firstName
+        lastName
+        phone
+        address
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateAppointment = /* GraphQL */ `
+  subscription OnUpdateAppointment {
+    onUpdateAppointment {
+      id
+      patientId
+      doctorId
+      appointmentDate
+      appointmentTime
+      patient {
+        id
+        firstName
+        lastName
+        insuranceNumber
+        ssn
+        birthDate
+        phone
+        address
+        sex
+        createdAt
+        updatedAt
+      }
+      doctor {
+        id
+        firstName
+        lastName
+        phone
+        address
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteAppointment = /* GraphQL */ `
+  subscription OnDeleteAppointment {
+    onDeleteAppointment {
+      id
+      patientId
+      doctorId
+      appointmentDate
+      appointmentTime
+      patient {
+        id
+        firstName
+        lastName
+        insuranceNumber
+        ssn
+        birthDate
+        phone
+        address
+        sex
+        createdAt
+        updatedAt
+      }
+      doctor {
+        id
+        firstName
+        lastName
+        phone
+        address
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;

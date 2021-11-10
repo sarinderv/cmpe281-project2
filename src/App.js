@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SideNav from './components/SideNav';
 import Doctor from './pages/Doctor';
 import Patient from './pages/Patient';
+import Appointment from './pages/Appointment';
 
 // see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
 
@@ -67,6 +68,7 @@ function App() {
         <Switch>
           <Route path='/' exact component={Doctor} />
           <Route path='/patient' component={Patient} />
+          <Route path='/appointment' component={Appointment} />
         </Switch>
       </Router>
 
