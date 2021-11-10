@@ -27,20 +27,17 @@ export default function CreateDoctor() {
       console.log("Chat fulfilled!", data);
       const fields = JSON.parse(data.slots);
       console.log("fields=", fields);
-      const fakeGuid = fakeGuidGenerator();
-      await API.graphql({ query: createDoctor, variables: { input: { firstName: fields.FirstName, lastName: fields.LastName, id: fakeGuid, phone: fields.PhoneNumber, address: fields.City } } });
+      Auth.currentAuthenticatedUser()
+        .then((userSession) => {
+          const username = userSession.signInUserSession.accessToken.payload.username;
+          API.graphql({ query: createDoctor, variables: { input: { firstName: fields.FirstName, lastName: fields.LastName, id: username, phone: fields.PhoneNumber, address: fields.City } } });
+        });
     }
     if (err) {
       console.error("Chat failed:", err);
     }
   };
 
-  function fakeGuidGenerator() { // not for production use :-)
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  }
   useEffect(() => {
     fetchUserData();
     const chatbotElement = document.querySelector("amplify-chatbot");
@@ -129,7 +126,6 @@ export default function CreateDoctor() {
           welcomeMessage="Hello, say 'Create Doctor' to get started."
           conversationModeOn="true"
           voiceEnabled="true"
-          clearOnComplete="true"
         />
       </div>
     );
