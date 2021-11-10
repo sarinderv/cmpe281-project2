@@ -77,7 +77,7 @@ export default function CreateDoctor() {
       console.error('error creating doctor', e);
       setErrorMessages(e.errors);
     }
-    history.push("/doctor");
+    history.push("/");
   }
 
   function renderForm() {
