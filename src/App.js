@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SideNav from './components/SideNav';
 import Doctor from './pages/Doctor';
 import Patient from './pages/Patient';
-import Appointment from './pages/Appointment';
+import CreateDoctor from './pages/CreateDoctor';
 
 // see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
 
@@ -49,29 +49,27 @@ function App() {
   }
 
   function isAdmin() {
-    return userData.payload['cognito:groups'] && userData.payload['cognito:groups'][0] === "Admins";
+    return userData.payload['cognito:groups'] && userData.payload['cognito:groups'][0] === "Doctor";
   }
 
   function userInfo() {
     return (
       <>
-        {userData.payload.username} <div className="badge">{isAdmin() ? "Admin" : "User"}</div>
+        {userData.payload.username} <div className="badge">{isAdmin() ? "Doctor" : "User"}</div>
       </>
     );
   }
 
   return (
     <div className="App">
-
-      <Router>
-        <SideNav />
-        <Switch>
-          <Route path='/' exact component={Doctor} />
-          <Route path='/patient' component={Patient} />
-          <Route path='/appointment' component={Appointment} />
-        </Switch>
-      </Router>
-
+          <Router>
+            <SideNav />
+            <Switch>
+              <Route path='/' exact component={Doctor} />
+              <Route path='/patient' component={Patient} />
+              <Route path='/createdoctor' component={CreateDoctor} />
+            </Switch>
+          </Router>
       <hr />
       { userInfo()}
     </div>
