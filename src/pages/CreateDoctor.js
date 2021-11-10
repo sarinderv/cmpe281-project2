@@ -1,4 +1,5 @@
 import { Auth } from 'aws-amplify';
+import { AmplifyChatbot } from "@aws-amplify/ui-react";
 import React, { useState, useEffect } from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -10,55 +11,81 @@ import { createDoctor } from '../graphql/mutations';
 
 export default function CreateDoctor() {
 
-    const [userData, setUserData] = useState({ payload: { username: '' } });
-    const [errorMessages, setErrorMessages] = useState([]);
-    const [fields, handleFieldChange] = useFormFields({
-      fistName: "",
-      lastName: "",
-      phone: "",
-      address: "",
+  const [userData, setUserData] = useState({ payload: { username: '' } });
+  const [errorMessages, setErrorMessages] = useState([]);
+  const [fields, handleFieldChange] = useFormFields({
+    fistName: "",
+    lastName: "",
+    phone: "",
+    address: "",
+  });
+  const history = useHistory();
+
+  const handleChatComplete = async (event) => {
+    const { data, err } = event.detail;
+    if (data) {
+      console.log("Chat fulfilled!", data);
+      const fields = JSON.parse(data.slots);
+      console.log("fields=", fields);
+      const fakeGuid = fakeGuidGenerator();
+      await API.graphql({ query: createDoctor, variables: { input: { firstName: fields.FirstName, lastName: fields.LastName, id: fakeGuid, phone: fields.PhoneNumber, address: fields.City } } });
+    }
+    if (err) {
+      console.error("Chat failed:", err);
+    }
+  };
+
+  function fakeGuidGenerator() { // not for production use :-)
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
     });
-    const history = useHistory();
-  
-    useEffect(() => {
-      fetchUserData();
-      }, []);
+  }
+  useEffect(() => {
+    fetchUserData();
+    const chatbotElement = document.querySelector("amplify-chatbot");
+    chatbotElement.addEventListener("chatCompleted", handleChatComplete);
+    return function cleanup() {
+      chatbotElement.removeEventListener("chatCompleted", handleChatComplete);
+    };
+  }, []);
 
-    async function fetchUserData() {
-      await Auth.currentAuthenticatedUser()
-        .then((userSession) => {
-          console.log("userData: ", userSession);
-          setUserData(userSession.signInUserSession.accessToken);
-        })
-        .catch((e) => console.log("Not signed in", e));
-    }
+  async function fetchUserData() {
+    await Auth.currentAuthenticatedUser()
+      .then((userSession) => {
+        console.log("userData: ", userSession);
+        setUserData(userSession.signInUserSession.accessToken);
+      })
+      .catch((e) => console.log("Not signed in", e));
+  }
 
-    function validateForm() {
-      try {
-        return (
-          fields.firstName.length > 0 &&
-          fields.lastName.length > 0 &&
-          fields.phone.length > 0 &&
-          fields.address.length > 0
-        );
-      } catch (e) {
-        return false;
-      }
-    }
-  
-    async function handleSubmit(event) {
-      event.preventDefault();
-      try {
-        await API.graphql({ query: createDoctor, variables: { input: {firstName: fields.firstName, lastName: fields.lastName, id: userData.payload.username, phone: fields.phone, address: fields.address} } });
-      } catch (e) {
-        console.error('error creating doctor', e);
-        setErrorMessages(e.errors);
-      }
-      history.push("/doctor");
-    }
-  
-    function renderForm() {
+  function validateForm() {
+    try {
       return (
+        fields.firstName.length > 0 &&
+        fields.lastName.length > 0 &&
+        fields.phone.length > 0 &&
+        fields.address.length > 0
+      );
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    try {
+      await API.graphql({ query: createDoctor, variables: { input: { firstName: fields.firstName, lastName: fields.lastName, id: userData.payload.username, phone: fields.phone, address: fields.address } } });
+    } catch (e) {
+      console.error('error creating doctor', e);
+      setErrorMessages(e.errors);
+    }
+    history.push("/doctor");
+  }
+
+  function renderForm() {
+    return (
+      <div>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="firstName" size="lg">
             <Form.Label>First Name</Form.Label>
@@ -96,8 +123,17 @@ export default function CreateDoctor() {
             Create
           </Button>
         </Form>
-      );
-    }
-  
-    return <div className="createdoctor"> <h1>Create Doctor</h1> {renderForm()} </div>;
+        <AmplifyChatbot
+          botName="DoctorBot_sampledev"
+          botTitle="Create Doctor Bot"
+          welcomeMessage="Hello, say 'Create Doctor' to get started."
+          conversationModeOn="true"
+          voiceEnabled="true"
+          clearOnComplete="true"
+        />
+      </div>
+    );
+  }
+
+  return <div className="createdoctor"> <h1>Create Doctor</h1> {renderForm()} </div>;
 }

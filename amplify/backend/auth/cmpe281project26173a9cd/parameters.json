@@ -1,6 +1,6 @@
 {
     "identityPoolName": "cmpe281project26173a9cd_identitypool_6173a9cd",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "cmpe286173a9cd",
     "userPoolName": "cmpe281project26173a9cd_userpool_6173a9cd",
     "autoVerifiedAttributes": [

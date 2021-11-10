@@ -29,6 +29,12 @@
           "deploymentBucketName": "amplify-cmpe281project2-sampledev-201600-deployment",
           "s3Key": "amplify-builds/jwtauth-356f3978522b4e65336f-build.zip"
         }
+      },
+      "interactions": {
+        "DoctorBot": {
+          "deploymentBucketName": "amplify-cmpe281project2-sampledev-201600-deployment",
+          "s3Key": "amplify-builds/DoctorBot-70754c3638374c665961-build.zip"
+        }
       }
     }
   }
