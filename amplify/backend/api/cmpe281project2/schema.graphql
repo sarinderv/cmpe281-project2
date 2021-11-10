@@ -17,3 +17,13 @@ type Doctor @model {
   phone: String
   address: String
 }
+
+type Appointment @model {
+  id: ID!
+  patientId: ID!
+  doctorId: ID!
+  appointmentDate: AWSDate!
+  appointmentTime: AWSTime! 
+  patient: Patient @connection(fields: ["patientId"])
+  doctor: Doctor @connection(fields: ["doctorId"])
+}

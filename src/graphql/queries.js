@@ -75,3 +75,80 @@ export const listDoctors = /* GraphQL */ `
     }
   }
 `;
+export const getAppointment = /* GraphQL */ `
+  query GetAppointment($id: ID!) {
+    getAppointment(id: $id) {
+      id
+      patientId
+      doctorId
+      appointmentDate
+      appointmentTime
+      patient {
+        id
+        firstName
+        lastName
+        insuranceNumber
+        ssn
+        birthDate
+        phone
+        address
+        sex
+        createdAt
+        updatedAt
+      }
+      doctor {
+        id
+        firstName
+        lastName
+        phone
+        address
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listAppointments = /* GraphQL */ `
+  query ListAppointments(
+    $filter: ModelAppointmentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAppointments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        patientId
+        doctorId
+        appointmentDate
+        appointmentTime
+        patient {
+          id
+          firstName
+          lastName
+          insuranceNumber
+          ssn
+          birthDate
+          phone
+          address
+          sex
+          createdAt
+          updatedAt
+        }
+        doctor {
+          id
+          firstName
+          lastName
+          phone
+          address
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
