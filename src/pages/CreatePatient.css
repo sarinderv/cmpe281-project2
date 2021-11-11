@@ -1,0 +1,11 @@
+@media all and (min-width: 480px) {
+    .createpatient {
+      padding: 60px 0;
+    }
+  
+    .createpatient form {
+      margin: 0 auto;
+      max-width: 320px;
+    }
+  }
+  
