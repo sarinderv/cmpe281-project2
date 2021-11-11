@@ -86,16 +86,16 @@ export default function Appointment(props) {
           <Form.Group controlId="appointmentDate">
             <Form.Label>Appointment Date</Form.Label>
             <Form.Control
-              value={fields.phone}
-              type="text"
+              value={fields.appointmentDate}
+              type="date"
               onChange={handleFieldChange}
             />
           </Form.Group>
           <Form.Group controlId="appointmentTime">
             <Form.Label>Appointment Time</Form.Label>
             <Form.Control
-              value={fields.address}
-              type="text"
+              value={fields.appointmentTime}
+              type="time"
               onChange={handleFieldChange}
             />
           </Form.Group>
