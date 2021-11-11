@@ -3,7 +3,6 @@
     "botName": "DoctorBot",
     "intents": [
         {
-            "cancelMessage": "Okay, the doctor will not be created.",
             "slots": [
                 {
                     "name": "FirstName",
@@ -44,6 +43,5 @@
     ],
     "outputVoice": "Matthew",
     "sessionTimeout": 5,
-    "coppa": false,
-    "shortId": "494971c8"
+    "coppa": false
 }

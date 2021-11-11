@@ -33,7 +33,7 @@
       "interactions": {
         "DoctorBot": {
           "deploymentBucketName": "amplify-cmpe281project2-sampledev-201600-deployment",
-          "s3Key": "amplify-builds/DoctorBot-70754c3638374c665961-build.zip"
+          "s3Key": "amplify-builds/DoctorBot-717731384f4e57704352-build.zip"
         }
       }
     }

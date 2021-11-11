@@ -19,15 +19,6 @@ exports.handler = function(event, context) {
             "name": "CreateDoctor" + "_" + process.env.ENV,
             
             
-            "rejectionStatement": {
-                "messages": [
-                    {
-                    "content": "Okay, the doctor will not be created.", 
-                    "contentType": "PlainText"
-                    }
-                ]
-            }, 
-        
             "sampleUtterances": [
             
                 "Create doctor",
@@ -308,7 +299,7 @@ function ensureLambdaFunctionAccess(intent){
 
         const params = {
             FunctionName: lambdaName,
-            StatementId: `Lex-${intent.name}`+ "494971c8",
+            StatementId: `Lex-${intent.name}`+ "8bc8b5b6",
             Action: 'lambda:InvokeFunction',
             Principal: 'lex.amazonaws.com',
             SourceArn: `arn:aws:lex:${region}:${accountId}:intent:${intent.name}:*`,
