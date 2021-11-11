@@ -17,6 +17,7 @@ export default function CreatePatient() {
       lastName: "",
       phone: "",
       address: "",
+      birthDate: "",
       sex: "",
       ssn: "",
       insuranceNumber: ""
@@ -43,6 +44,7 @@ export default function CreatePatient() {
           fields.lastName.length > 0 &&
           fields.phone.length > 0 &&
           fields.address.length > 0 &&
+          fields.birthDate.length > 0 &&
           fields.sex.length > 0 &&
           fields.ssn.length > 0 &&
           fields.insuranceNumber.length > 0
@@ -56,7 +58,7 @@ export default function CreatePatient() {
       event.preventDefault();
       try {
         await API.graphql({ query: createPatient, variables: { input: {firstName: fields.firstName, lastName: fields.lastName, id: userData.payload.username, phone: fields.phone, address: fields.address,
-            sex: fields.sex, ssn: fields.ssn, insuranceNumber: fields.insuranceNumber} } });
+            birthDate: fields.birthDate+'T00:00:00.000Z', sex: fields.sex, ssn: fields.ssn, insuranceNumber: fields.insuranceNumber} } });
       } catch (e) {
         console.error('error registering patient', e);
         setErrorMessages(e.errors);
@@ -96,6 +98,14 @@ export default function CreatePatient() {
             <Form.Control
               type="text"
               value={fields.address}
+              onChange={handleFieldChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="birthDate" size="lg">
+            <Form.Label>Birth date</Form.Label>
+            <Form.Control
+              type="date"
+              value={fields.birthDate}
               onChange={handleFieldChange}
             />
           </Form.Group>

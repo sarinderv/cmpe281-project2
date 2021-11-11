@@ -75,6 +75,9 @@ export default function Patient() {
                           <b>Address :</b> {patient.address}
                         </Col>
                         <Col style={{ fontSize: "1rem" }}>
+                          <b>Birthdate :</b> {patient.birthDate ? patient.birthDate.substring(0,"yyy-mm-dd".length+1) : ""}
+                        </Col>
+                        <Col style={{ fontSize: "1rem" }}>
                         <b>Sex :</b> {patient.sex}
                       </Col>
                       <Col style={{ fontSize: "1rem" }}>
