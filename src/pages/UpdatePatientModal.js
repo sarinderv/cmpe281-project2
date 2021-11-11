@@ -18,7 +18,8 @@ export default function UpdatePatientModal(props) {
     try {
       return (
         fields.phone.length > 0 &&
-        fields.address.length > 0 
+        fields.address.length > 0 &&
+        fields.birthDate.length > 0 
       );
     } catch (e) {
       return false;
@@ -32,7 +33,8 @@ export default function UpdatePatientModal(props) {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      await API.graphql({ query: updatePatient, variables: { input: {id: props.patient.id, phone: fields.phone, address: fields.address} } });
+      await API.graphql({ query: updatePatient, variables: { input: {id: props.patient.id,firstName: fields.firstName,lastName: fields.lastName, phone: fields.phone, address: fields.address,sex: fields.sex, ssn: fields.ssn,
+      insuranceNumber: fields.insuranceNumber, birthDate: fields.birthDate+'T00:00:00.000Z'} } });
     } catch (e) {
       console.error('error updating patient', e);
       setErrorMessages(e.errors);
@@ -58,6 +60,24 @@ export default function UpdatePatientModal(props) {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="firstName">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              value={fields.firstName}
+              placeholder={props.patient.firstName}
+              type="text"
+              onChange={handleFieldChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="lastName">
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              value={fields.lastName}
+              placeholder={props.patient.lastName}
+              type="text"
+              onChange={handleFieldChange}
+            />
+          </Form.Group>
           <Form.Group controlId="phone">
             <Form.Label>Phone</Form.Label>
             <Form.Control
@@ -76,6 +96,45 @@ export default function UpdatePatientModal(props) {
               onChange={handleFieldChange}
             />
           </Form.Group>
+          <Form.Group controlId="ssn">
+            <Form.Label>SSN</Form.Label>
+            <Form.Control
+              value={fields.ssn}
+              placeholder={props.patient.ssn}
+              type="text"
+              onChange={handleFieldChange}
+            />
+          </Form.Group>
+          
+          <Form.Group controlId="insuranceNumber">
+            <Form.Label>Insurance Number</Form.Label>
+            <Form.Control
+              value={fields.insuranceNumber}
+              placeholder={props.patient.insuranceNumber}
+              type="text"
+              onChange={handleFieldChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="birthDate">
+            <Form.Label>Birth Date</Form.Label>
+            <Form.Control
+              value={fields.birthDate}
+              placeholder={props.patient.birthDate}
+              type="date"
+              onChange={handleFieldChange}
+            />
+          </Form.Group>
+
+          <Form.Group controlId="sex">
+            <Form.Label>Sex</Form.Label>
+            <Form.Control
+              value={fields.sex}
+              placeholder={props.patient.sex}
+              type="text"
+              onChange={handleFieldChange}
+            />
+          </Form.Group>
+
           <Button block type="submit" size="lg" disabled={!validateForm()}>
             Update
           </Button>
