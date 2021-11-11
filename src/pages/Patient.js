@@ -16,6 +16,7 @@ export default function Patient() {
     const [errorMessages, setErrorMessages] = useState([]);
     const history = useHistory();
     const [updateModalShow, setUpdateModalShow] = React.useState(false);
+    const [updateAppointmentModalShow, setAppointmentModalShow] = React.useState(false);
     const [selectedPatient, setSelectedPatient] = useState([]);
 
     useEffect(() => {
@@ -35,6 +36,7 @@ export default function Patient() {
     async function getPatientInfo(userName) {
         try {
           const apiData = await API.graphql({ query: getPatient, variables: { id: userName } } );
+          console.log(apiData.data.getPatient)
           if (apiData.data.getPatient == null) {
             history.push("/createpatient")
           }
@@ -52,7 +54,7 @@ export default function Patient() {
 
     function openAppointment(patient) {
       setSelectedPatient(patient);
-      setUpdateModalShow(true);
+      setAppointmentModalShow(true);
     }
     
 
@@ -116,10 +118,10 @@ export default function Patient() {
             </div>
 
             <Appointment
-                  show={updateModalShow}
+                  show={updateAppointmentModalShow}
                   patient={selectedPatient}
                   onUpdated={() => getPatientInfo(patient.id)}
-                  onHide={() => setUpdateModalShow(false)}
+                  onHide={() => setAppointmentModalShow(false)}
                 />
         </div>
     );
