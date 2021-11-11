@@ -25,7 +25,7 @@ export default function CreateDoctor() {
     const { data, err } = event.detail;
     if (data) {
       console.log("Chat fulfilled!", data);
-      const fields = JSON.parse(data.slots);
+      const fields = typeof data.slots === 'string' || data.slots instanceof String ? JSON.parse(data.slots) : data.slots;
       console.log("fields=", fields);
       Auth.currentAuthenticatedUser()
         .then((userSession) => {
