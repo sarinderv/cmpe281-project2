@@ -6,6 +6,7 @@ import { useHistory, Redirect } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import UpdatePatientModal from "./UpdatePatientModal";
+import Appointment from "./Appointment";
 
 
 export default function Patient() {
@@ -49,6 +50,10 @@ export default function Patient() {
       setUpdateModalShow(true);
     }
 
+    function openAppointment(patient) {
+      setSelectedPatient(patient);
+      setUpdateModalShow(true);
+    }
     
 
     return (
@@ -98,7 +103,24 @@ export default function Patient() {
                   onUpdated={() => getPatientInfo(patient.id)}
                   onHide={() => setUpdateModalShow(false)}
                 />
-            <h1>Appointments</h1>
+            <h1>Appointment Information</h1>
+            <div>
+            <Button
+                              variant="success"
+                              block
+                              size="sm"
+                              onClick={() => openAppointment(patient)}
+                            >
+                              Take Appointment
+                            </Button>
+            </div>
+
+            <Appointment
+                  show={updateModalShow}
+                  patient={selectedPatient}
+                  onUpdated={() => getPatientInfo(patient.id)}
+                  onHide={() => setUpdateModalShow(false)}
+                />
         </div>
     );
 }
