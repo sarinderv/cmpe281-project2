@@ -106,5 +106,12 @@
         }
       ]
     }
+  },
+  "interactions": {
+    "DoctorBot": {
+      "service": "Lex",
+      "providerPlugin": "awscloudformation",
+      "build": true
+    }
   }
 }
