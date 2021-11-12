@@ -91,6 +91,42 @@ export const onDeleteDoctor = /* GraphQL */ `
     }
   }
 `;
+export const onCreatePrescription = /* GraphQL */ `
+  subscription OnCreatePrescription {
+    onCreatePrescription {
+      id
+      patientId
+      fileName
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdatePrescription = /* GraphQL */ `
+  subscription OnUpdatePrescription {
+    onUpdatePrescription {
+      id
+      patientId
+      fileName
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeletePrescription = /* GraphQL */ `
+  subscription OnDeletePrescription {
+    onDeletePrescription {
+      id
+      patientId
+      fileName
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateAppointment = /* GraphQL */ `
   subscription OnCreateAppointment {
     onCreateAppointment {

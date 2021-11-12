@@ -75,6 +75,37 @@ export const listDoctors = /* GraphQL */ `
     }
   }
 `;
+export const getPrescription = /* GraphQL */ `
+  query GetPrescription($id: ID!) {
+    getPrescription(id: $id) {
+      id
+      patientId
+      fileName
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listPrescriptions = /* GraphQL */ `
+  query ListPrescriptions(
+    $filter: ModelPrescriptionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPrescriptions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        patientId
+        fileName
+        description
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getAppointment = /* GraphQL */ `
   query GetAppointment($id: ID!) {
     getAppointment(id: $id) {
@@ -152,7 +183,6 @@ export const listAppointments = /* GraphQL */ `
     }
   }
 `;
-
 
 export const listAppointmentByPatient = /* GraphQL */ `
 query listAppointmentByPatient($patientId: ID!) {

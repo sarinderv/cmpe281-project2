@@ -1,21 +1,23 @@
-import { Auth } from 'aws-amplify';
-import { API } from 'aws-amplify';
+import { API, Auth } from 'aws-amplify';
 import React, { useState, useEffect } from 'react';
 import { getDoctor, listAppointmentByDoctor } from '../graphql/queries';
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import UpdateDoctorModal from "./UpdateDoctorModal";
+import AddPrescriptionModal from "./AddPrescriptionModal";
 
 export default function Doctor() {
 
     const [userData, setUserData] = useState({ payload: { username: '' } });
     const [doctor, setDoctor] = useState({ });
     const [appointments, setAppointments] = useState([]);
+    const [appointment, setAppointment] = useState({});
     const [errorMessages, setErrorMessages] = useState([]);
     const history = useHistory();
     const [updateModalShow, setUpdateModalShow] = React.useState(false);
     const [selectedDoctor, setSelectedDoctor] = useState([]);
+    const [addModalShow, setAddModalShow] = React.useState(false);
 
     useEffect(() => {
       fetchUserData();
@@ -48,8 +50,8 @@ export default function Doctor() {
     async function fetchAppointments(userName) {
       try {
         const apiData = await API.graphql({ query: listAppointmentByDoctor, variables: { doctorId: userName, appointmentDate: new Date().toISOString().slice(0, 10) }  });
-          console.log(apiData.data.listAppointments.items);
-          setAppointments(apiData.data.listAppointments.items);
+        console.log(apiData.data.listAppointments.items);
+        setAppointments(apiData.data.listAppointments.items);
       } catch (e) {
           console.error('error fetching appointments', e);
           setErrorMessages(e.errors);
@@ -118,13 +120,19 @@ export default function Doctor() {
                         <td>{appointment.appointmentTime}</td>
                         <td> {appointment.patient != null ? appointment.patient.firstName +" "+appointment.patient.lastName : ""}</td>
                         <td>{appointment.patient.phone}</td>
-                        <td><button onClick={null}>Upload Prescription</button></td>      
+                        <td><button onClick={() =>{ setAppointment(appointment);setAddModalShow(true)}}>Upload Prescription</button></td> 
                       </tr>
                     ))
                   }
                 </tbody>
             </table>
           </div>
+          <AddPrescriptionModal
+                  show={addModalShow}
+                  appointment={appointment}
+                  onUploaded={() => fetchUserData()}
+                  onHide={() => setAddModalShow(false)}
+                />
       </div>
     );
 }
