@@ -18,6 +18,14 @@ type Doctor @model {
   address: String
 }
 
+type Prescription @model {
+  id: ID!
+  appointmentId: ID!
+  patientId: ID!
+  fileName: String
+  description: String
+}
+
 type Appointment @model {
   id: ID!
   patientId: ID!
