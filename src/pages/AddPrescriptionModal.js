@@ -40,8 +40,8 @@ export default function AddPrescriptionModal(props) {
       console.log(props.appointment);
       var uuid = require("uuid").v4();
       var path = uuid+"/"+file.current.name
-      await API.graphql({ query: createPrescription, variables: { input: {"patientId": props.appointment.patientId, "fileName": path, "description": fields.description} } });
-      await Storage.put(path, file.current);
+      await API.graphql({ query: createPrescription, variables: { input: {"appointmentId": props.appointment.id, "patientId": props.appointment.patientId, "fileName": path, "description": fields.description} } });
+      await Storage.put(path, file.current,{ level: "private", });
       alert("Prescription uploaded!");
       fields.description = "";
       props.onUploaded();

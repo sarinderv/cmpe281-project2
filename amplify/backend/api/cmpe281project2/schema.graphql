@@ -20,6 +20,7 @@ type Doctor @model {
 
 type Prescription @model {
   id: ID!
+  appointmentId: ID!
   patientId: ID!
   fileName: String
   description: String

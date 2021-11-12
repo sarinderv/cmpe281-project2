@@ -79,6 +79,7 @@ export const getPrescription = /* GraphQL */ `
   query GetPrescription($id: ID!) {
     getPrescription(id: $id) {
       id
+      appointmentId
       patientId
       fileName
       description
@@ -96,6 +97,7 @@ export const listPrescriptions = /* GraphQL */ `
     listPrescriptions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        appointmentId
         patientId
         fileName
         description

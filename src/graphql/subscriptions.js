@@ -95,6 +95,7 @@ export const onCreatePrescription = /* GraphQL */ `
   subscription OnCreatePrescription {
     onCreatePrescription {
       id
+      appointmentId
       patientId
       fileName
       description
@@ -107,6 +108,7 @@ export const onUpdatePrescription = /* GraphQL */ `
   subscription OnUpdatePrescription {
     onUpdatePrescription {
       id
+      appointmentId
       patientId
       fileName
       description
@@ -119,6 +121,7 @@ export const onDeletePrescription = /* GraphQL */ `
   subscription OnDeletePrescription {
     onDeletePrescription {
       id
+      appointmentId
       patientId
       fileName
       description

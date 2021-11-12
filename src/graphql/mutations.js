@@ -116,6 +116,7 @@ export const createPrescription = /* GraphQL */ `
   ) {
     createPrescription(input: $input, condition: $condition) {
       id
+      appointmentId
       patientId
       fileName
       description
@@ -131,6 +132,7 @@ export const updatePrescription = /* GraphQL */ `
   ) {
     updatePrescription(input: $input, condition: $condition) {
       id
+      appointmentId
       patientId
       fileName
       description
@@ -146,6 +148,7 @@ export const deletePrescription = /* GraphQL */ `
   ) {
     deletePrescription(input: $input, condition: $condition) {
       id
+      appointmentId
       patientId
       fileName
       description
