@@ -1,18 +1,21 @@
 import { Auth } from 'aws-amplify';
 import { API } from 'aws-amplify';
 import React, { useState, useEffect } from 'react';
-import { getPatient} from '../graphql/queries';
+import { getDoctor, getPatient, listAppointments,listAppointmentByPatient} from '../graphql/queries';
 import { useHistory, Redirect } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import UpdatePatientModal from "./UpdatePatientModal";
 import Appointment from "./Appointment";
+import { deleteAppointment } from '../graphql/mutations';
 
 
 export default function Patient() {
 
     const [userData, setUserData] = useState({ payload: { username: '' } });
     const [patient, setPatient]= useState({ });
+    const [doctor, setDoctor]= useState({ });
+    const [appointments, setAppointments]= useState([]);
     const [errorMessages, setErrorMessages] = useState([]);
     const history = useHistory();
     const [updateModalShow, setUpdateModalShow] = React.useState(false);
@@ -21,6 +24,7 @@ export default function Patient() {
 
     useEffect(() => {
       fetchUserData();
+      
       }, []);
 
     async function fetchUserData() {
@@ -28,9 +32,24 @@ export default function Patient() {
         .then((userSession) => {
           console.log("userData: ", userSession);
           getPatientInfo(userSession.signInUserSession.accessToken.payload.username);
+         
           setUserData(userSession.signInUserSession.accessToken);
+          fetchAppointments(userSession.signInUserSession.accessToken.payload.username);
         })
         .catch((e) => console.log("Not signed in", e));
+    }
+
+    async function fetchAppointments(userName) {
+      console.log("inside fetch appointments" );
+      try {
+          const apiData = await API.graphql({ query: listAppointmentByPatient, variables: { patientId: userName }  });
+          console.log(apiData.data.listAppointments.items);
+          setAppointments(apiData.data.listAppointments.items);
+      }catch(e){
+          console.error('error fetching appointments', e);
+          setErrorMessages(e.errors);
+      }
+      
     }
 
     async function getPatientInfo(userName) {
@@ -56,7 +75,22 @@ export default function Patient() {
       setSelectedPatient(patient);
       setAppointmentModalShow(true);
     }
+  
+    async function deleteAppointmentById({ id }) {
+
+      try {
+        console.log("inside delete appointment " + id);
+        const newAppointmentArray = appointments.filter(appointment => appointment.id !== id);
+        setAppointments(newAppointmentArray);
+        await API.graphql({ query: deleteAppointment, variables: { input: { id } }});
+ 
+
+      }catch (e) {
+          console.error('error deleting appointment', e);
+          setErrorMessages(e.errors);
+      }
     
+    }
 
     return (
         <div className='patient'>
@@ -109,6 +143,34 @@ export default function Patient() {
                   onHide={() => setUpdateModalShow(false)}
                 />
             <h1>Appointment Information</h1>
+            <div >
+
+<table>
+      <thead>
+        <tr>
+          <th>Appointment Date</th>
+          <th>Appointment Time</th>
+          <th>Preferred Doctor</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      {
+      appointments.map(appointment => (
+            <tr key={appointment.id || appointment.appointmentDate} >
+              <td>{appointment.appointmentDate}</td>
+              <td>{appointment.appointmentTime}</td>
+              <td> {appointment.doctor != null ? appointment.doctor.firstName +" "+appointment.doctor.lastName : ""}</td>
+  
+              <td><button onClick={() => deleteAppointmentById(appointment)}>Delete</button></td>
+              
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+    </div>
+
             <div>
             <Button
                               variant="success"
@@ -116,7 +178,7 @@ export default function Patient() {
                               size="sm"
                               onClick={() => openAppointment(patient)}
                             >
-                              Take Appointment
+                              Take Another Appointment
                             </Button>
             </div>
 

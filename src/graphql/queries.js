@@ -152,3 +152,24 @@ export const listAppointments = /* GraphQL */ `
     }
   }
 `;
+
+
+export const listAppointmentByPatient = /* GraphQL */ `
+query listAppointmentByPatient($patientId: ID!) {
+  listAppointments(filter: {patientId: {eq: $patientId}}) {
+    items {
+      id
+      appointmentDate
+      appointmentTime
+      doctorId
+      patientId
+      doctor {
+        firstName
+        lastName
+      }
+    }
+  }
+}
+
+
+`;
