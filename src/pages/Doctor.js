@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify';
 import { API } from 'aws-amplify';
 import React, { useState, useEffect } from 'react';
-import { getDoctor } from '../graphql/queries';
+import { getDoctor, listAppointmentByDoctor } from '../graphql/queries';
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -11,6 +11,7 @@ export default function Doctor() {
 
     const [userData, setUserData] = useState({ payload: { username: '' } });
     const [doctor, setDoctor] = useState({ });
+    const [appointments, setAppointments] = useState([]);
     const [errorMessages, setErrorMessages] = useState([]);
     const history = useHistory();
     const [updateModalShow, setUpdateModalShow] = React.useState(false);
@@ -25,6 +26,7 @@ export default function Doctor() {
         .then((userSession) => {
           console.log("userData: ", userSession);
           getDoctorInfo(userSession.signInUserSession.accessToken.payload.username);
+          fetchAppointments(userSession.signInUserSession.accessToken.payload.username);
           setUserData(userSession.signInUserSession.accessToken);
         })
         .catch((e) => console.log("Not signed in", e));
@@ -42,6 +44,17 @@ export default function Doctor() {
             setErrorMessages(e.errors);
         }
       }
+
+    async function fetchAppointments(userName) {
+      try {
+        const apiData = await API.graphql({ query: listAppointmentByDoctor, variables: { doctorId: userName, appointmentDate: new Date().toISOString().slice(0, 10) }  });
+          console.log(apiData.data.listAppointments.items);
+          setAppointments(apiData.data.listAppointments.items);
+      } catch (e) {
+          console.error('error fetching appointments', e);
+          setErrorMessages(e.errors);
+      }
+    }
     
     function openUpdateDoctorModal(doctor) {
       setSelectedDoctor(doctor);
@@ -85,8 +98,34 @@ export default function Doctor() {
                   onUpdated={() => getDoctorInfo(doctor.id)}
                   onHide={() => setUpdateModalShow(false)}
                 />
-            <h1>Appointments</h1>
-        </div>
+             <h1>Today's Appointments</h1>
+            <div >
+              <table>
+                <thead>
+                  <tr>
+                    <th>Appointment Date</th>
+                    <th>Appointment Time</th>
+                    <th>Patient</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {
+                appointments.map(appointment => (
+                      <tr key={appointment.id || appointment.appointmentDate} >
+                        <td>{appointment.appointmentDate}</td>
+                        <td>{appointment.appointmentTime}</td>
+                        <td> {appointment.patient != null ? appointment.patient.firstName +" "+appointment.patient.lastName : ""}</td>
+                        <td>{appointment.patient.phone}</td>
+                        <td><button onClick={null}>Upload Prescription</button></td>      
+                      </tr>
+                    ))
+                  }
+                </tbody>
+            </table>
+          </div>
+      </div>
     );
 }
 
