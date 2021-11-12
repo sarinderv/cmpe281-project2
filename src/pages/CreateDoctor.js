@@ -31,8 +31,8 @@ export default function CreateDoctor() {
         .then((userSession) => {
           const username = userSession.signInUserSession.accessToken.payload.username;
           API.graphql({ query: createDoctor, variables: { input: { firstName: fields.FirstName, lastName: fields.LastName, id: username, phone: fields.PhoneNumber, address: fields.City } } });
+          history.push("/");
         });
-      history.push("/");
     }
     if (err) {
       console.error("Chat failed:", err);
