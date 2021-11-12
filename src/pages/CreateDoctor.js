@@ -31,8 +31,8 @@ export default function CreateDoctor() {
         .then((userSession) => {
           const username = userSession.signInUserSession.accessToken.payload.username;
           API.graphql({ query: createDoctor, variables: { input: { firstName: fields.FirstName, lastName: fields.LastName, id: username, phone: fields.PhoneNumber, address: fields.City } } });
+          history.push("/");
         });
-      history.push("/");
     }
     if (err) {
       console.error("Chat failed:", err);
@@ -118,13 +118,13 @@ export default function CreateDoctor() {
             />
           </Form.Group>
           <Button block size="lg" type="submit" disabled={!validateForm()}>
-            Create
+            Register
           </Button>
         </Form>
         <AmplifyChatbot
           botName="DoctorBot_sampledev"
-          botTitle="Create Doctor Bot"
-          welcomeMessage="Hello, say 'Create Doctor' to get started."
+          botTitle="Register Doctor Bot"
+          welcomeMessage="Hello, say 'Register Doctor' to get started."
           conversationModeOn="true"
           voiceEnabled="true"
         />
@@ -132,5 +132,5 @@ export default function CreateDoctor() {
     );
   }
 
-  return <div className="createdoctor"> <h1>Create Doctor</h1> {renderForm()} </div>;
+  return <div className="createdoctor"> <h1>Register Doctor</h1> {renderForm()} </div>;
 }
