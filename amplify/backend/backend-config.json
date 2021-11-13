@@ -106,5 +106,20 @@
         }
       ]
     }
+  },
+  "interactions": {
+    "DoctorBot": {
+      "service": "Lex",
+      "providerPlugin": "awscloudformation",
+      "build": true
+    }
+  },
+  "predictions": {
+    "identifyText": {
+      "providerPlugin": "awscloudformation",
+      "service": "RekognitionAndTextract",
+      "dependsOn": [],
+      "identifyType": "identifyText"
+    }
   }
 }
