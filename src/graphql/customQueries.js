@@ -1,6 +1,6 @@
 export const listAppointmentByPatient = /* GraphQL */ `
-query listAppointmentByPatient($patientId: ID!) {
-  listAppointments(filter: {patientId: {eq: $patientId}}) {
+query listAppointmentByPatient($patientId: ID!,$appointmentDate: String!) {
+  listAppointments(filter: {patientId: {eq: $patientId}, appointmentDate: {ge: $appointmentDate}}) {
     items {
       id
       appointmentDate
