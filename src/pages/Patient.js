@@ -120,7 +120,7 @@ export default function Patient() {
 
     return (
         <div className='patient'>
-          <h1>Patient Registration</h1>
+          <h1>Patient Details</h1>
               <div>
                     <Container>
                       <Row className="align-items-center">
@@ -205,11 +205,6 @@ export default function Patient() {
     </table>
     </div>
 
-
-
-
-
-
         <div >
         <h2>Upcoming Appointments</h2>
 <table>
@@ -242,7 +237,7 @@ export default function Patient() {
             <div>
             <Container>
           
-              <Button
+              <Button 
                               variant="success"
                               block
                               size="sm"
