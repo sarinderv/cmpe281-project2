@@ -55,7 +55,7 @@ export const listPrescriptionByappointmentId = /* GraphQL */ `
 
 export const listPrescriptionByPatient = /* GraphQL */ `
 query listPrescriptionByPatient($patientId: ID!) {
-  listAppointments(filter: {patientId: {eq: $patientId}}) {
+  listPrescriptions(filter: {patientId: {eq: $patientId}}) {
     items {
       id
       appointmentId

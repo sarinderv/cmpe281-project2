@@ -3,12 +3,13 @@ import { API,Storage } from 'aws-amplify';
 import React, { useState, useEffect } from 'react';
 import {  getPatient} from '../graphql/queries';
 import { listAppointmentByPatient, listPrescriptionByPatient} from '../graphql/customQueries';
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import UpdatePatientModal from "./UpdatePatientModal";
 import Appointment from "./Appointment";
 import { deleteAppointment } from '../graphql/mutations';
+import { AmplifyS3Image } from '@aws-amplify/ui-react';
 
 
 export default function Patient() {
@@ -61,6 +62,14 @@ export default function Patient() {
       try {
           const apiData = await API.graphql({ query: listPrescriptionByPatient, variables: { patientId: userName }  });
           console.log(apiData.data.listPrescriptions.items);
+          const prescriptionFromAPI  = apiData.data.listPrescriptions.items
+          await Promise.all(prescriptionFromAPI.map(async prescription => {
+            const content = await Storage.get(apiData.data.listPrescriptions.items[0].fileName,{ level: "private", });
+            prescription.content = content;
+            return prescription;
+            }))
+
+
           setPrescriptions(apiData.data.listPrescriptions.items);
       }catch(e){
           console.error('error fetching prescriptions', e);
@@ -179,7 +188,15 @@ export default function Patient() {
       prescriptions.map(prescription => (
             <tr key={prescription.id || prescription.patientId} >
               <td>{prescription.doctor != null ? prescription.doctor.firstName +" "+prescription.doctor.lastName : ""}</td>
-              <td>{prescription.fileName}</td>
+              <td>
+                    {
+                      prescription.content && <a href={prescription.content} download={prescription.fileName}>
+                        {
+                          <AmplifyS3Image level="private" imgKey={prescription.fileName} alt={prescription.fileName.slice(prescription.fileName.lastIndexOf('/') + 1)} /> 
+                        }
+                      </a>
+                    }
+                  </td>
               <td>{prescription.description != null ?  prescription.description : ""} </td>              
             </tr>
           ))
