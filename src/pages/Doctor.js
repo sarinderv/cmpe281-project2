@@ -1,6 +1,7 @@
 import { API, Auth } from 'aws-amplify';
 import React, { useState, useEffect } from 'react';
-import { getDoctor, listAppointmentByDoctor } from '../graphql/queries';
+import { getDoctor } from '../graphql/queries';
+import { listAppointmentByDoctor } from '../graphql/customQueries';
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
