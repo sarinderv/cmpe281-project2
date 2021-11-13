@@ -42,7 +42,7 @@ export default function Patient() {
     async function fetchAppointments(userName) {
       console.log("inside fetch appointments" );
       try {
-          const apiData = await API.graphql({ query: listAppointmentByPatient, variables: { patientId: userName }  });
+          const apiData = await API.graphql({ query: listAppointmentByPatient, variables: { patientId: userName ,appointmentDate: new Date().toISOString().slice(0, 10) }  });
           console.log(apiData.data.listAppointments.items);
           setAppointments(apiData.data.listAppointments.items);
       }catch(e){
@@ -142,7 +142,7 @@ export default function Patient() {
                   onUpdated={() => getPatientInfo(patient.id)}
                   onHide={() => setUpdateModalShow(false)}
                 />
-            <h1>Appointment Information</h1>
+            <h1>Upcoming Appointments</h1>
             <div >
 
 <table>
@@ -151,6 +151,7 @@ export default function Patient() {
           <th>Appointment Date</th>
           <th>Appointment Time</th>
           <th>Preferred Doctor</th>
+          <th>Reason for visit</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -161,7 +162,7 @@ export default function Patient() {
               <td>{appointment.appointmentDate}</td>
               <td>{appointment.appointmentTime}</td>
               <td> {appointment.doctor != null ? appointment.doctor.firstName +" "+appointment.doctor.lastName : ""}</td>
-  
+              <td>{appointment.description}</td>
               <td><button onClick={() => deleteAppointmentById(appointment)}>Delete</button></td>
               
             </tr>

@@ -32,6 +32,7 @@ type Appointment @model {
   doctorId: ID!
   appointmentDate: AWSDate!
   appointmentTime: AWSTime! 
+  description: String!
   patient: Patient @connection(fields: ["patientId"])
   doctor: Doctor @connection(fields: ["doctorId"])
 }

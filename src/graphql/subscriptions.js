@@ -138,6 +138,7 @@ export const onCreateAppointment = /* GraphQL */ `
       doctorId
       appointmentDate
       appointmentTime
+      description
       patient {
         id
         firstName
@@ -173,6 +174,7 @@ export const onUpdateAppointment = /* GraphQL */ `
       doctorId
       appointmentDate
       appointmentTime
+      description
       patient {
         id
         firstName
@@ -208,6 +210,7 @@ export const onDeleteAppointment = /* GraphQL */ `
       doctorId
       appointmentDate
       appointmentTime
+      description
       patient {
         id
         firstName

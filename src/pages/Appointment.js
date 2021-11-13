@@ -27,7 +27,8 @@ export default function Appointment(props) {
       return (
         fields.appointmentDate !==  null &&
         fields.appointmentTime !==  null &&
-        fields.doctorId !== null
+        fields.doctorId !== null &&
+        fields.description !== ""
       );
     } catch (e) {
       return false;
@@ -51,12 +52,25 @@ export default function Appointment(props) {
     
   }
 
+  function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
 
   async function handleSubmit(event) {
     event.preventDefault();
     try {
         await API.graphql({ query: createAppointment, variables: { input: {patientId: props.patient.id, doctorId: fields.doctorId, appointmentDate: fields.appointmentDate, appointmentTime: fields.appointmentTime,
-            } } });
+           description: fields.description } } });
       } catch (e) {
         console.error('error taking appointment', e);
         setErrorMessages(e.errors);
@@ -65,6 +79,7 @@ export default function Appointment(props) {
       fields.appointmentTime = date.getDate;
       fields.appointmentDate = date.getTime;
       fields.doctorId = "";
+      fields.description = "";
       props.onUpdated();
       props.onHide();
   }
@@ -85,7 +100,7 @@ export default function Appointment(props) {
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="appointmentDate">
             <Form.Label>Appointment Date</Form.Label>
-            <Form.Control
+            <Form.Control min = {formatDate(date)}
               value={fields.appointmentDate}
               type="date"
               onChange={handleFieldChange}
@@ -112,7 +127,15 @@ export default function Appointment(props) {
             }  
 
             </Form.Control>
-        </Form.Group>     
+        </Form.Group>   
+        <Form.Group controlId="description">
+            <Form.Label>Reason for Appointment</Form.Label>
+            <Form.Control
+              value={fields.description}
+              type="text"
+              onChange={handleFieldChange}
+            />
+          </Form.Group>  
           <Button block type="submit" size="lg" disabled={!validateForm()}>
             Take Appointment
           </Button>
