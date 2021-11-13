@@ -9,6 +9,7 @@ import Patient from './pages/Patient';
 import TestPatient from './pages/TestPatient';
 import CreateDoctor from './pages/CreateDoctor';
 import CreatePatient from './pages/CreatePatient';
+import Admin from './pages/Admin';
 
 // see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
 
@@ -44,14 +45,14 @@ function App() {
   async function fetchUserData() {
     await Auth.currentAuthenticatedUser()
       .then((userSession) => {
-        console.log("userData: ", userSession);
+        //console.log("userData: ", userSession);
         setUserData(userSession.signInUserSession.accessToken);
       })
       .catch((e) => console.log("Not signed in", e));
   }
 
   function isAdmin() {
-    return userData.payload['cognito:groups'] && userData.payload['cognito:groups'][0] === "Doctor";
+    return userData.payload['cognito:groups'] && userData.payload['cognito:groups'][0] === "Admins";
   }
 
   function userInfo() {
@@ -71,6 +72,7 @@ function App() {
               <Route path='/patient' component={Patient} />
               <Route path='/createpatient' component={CreatePatient} />
               <Route path='/createdoctor' component={CreateDoctor} />
+              <Route path="/admin" component={Admin} />
             </Switch>
           </Router>
       <hr />
