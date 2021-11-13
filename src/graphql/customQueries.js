@@ -37,6 +37,22 @@ query listAppointmentByDoctor($doctorId: ID!, $appointmentDate: String!) {
 }
 `;
 
+export const listPrescriptionByappointmentId = /* GraphQL */ `
+  query listPrescriptionByappointmentId($appointmentId: ID!, $patientId: ID!) {
+    listPrescriptions(filter: {appointmentId: {eq: $appointmentId}, patientId: {eq: $patientId}}) {
+      items {
+        id
+        appointmentId
+        patientId
+        fileName
+        description
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+
 export const listPrescriptionByPatient = /* GraphQL */ `
 query listPrescriptionByPatient($patientId: ID!) {
   listAppointments(filter: {patientId: {eq: $patientId}}) {
