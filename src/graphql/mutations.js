@@ -109,6 +109,54 @@ export const deleteDoctor = /* GraphQL */ `
     }
   }
 `;
+export const createPrescription = /* GraphQL */ `
+  mutation CreatePrescription(
+    $input: CreatePrescriptionInput!
+    $condition: ModelPrescriptionConditionInput
+  ) {
+    createPrescription(input: $input, condition: $condition) {
+      id
+      appointmentId
+      patientId
+      fileName
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updatePrescription = /* GraphQL */ `
+  mutation UpdatePrescription(
+    $input: UpdatePrescriptionInput!
+    $condition: ModelPrescriptionConditionInput
+  ) {
+    updatePrescription(input: $input, condition: $condition) {
+      id
+      appointmentId
+      patientId
+      fileName
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deletePrescription = /* GraphQL */ `
+  mutation DeletePrescription(
+    $input: DeletePrescriptionInput!
+    $condition: ModelPrescriptionConditionInput
+  ) {
+    deletePrescription(input: $input, condition: $condition) {
+      id
+      appointmentId
+      patientId
+      fileName
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createAppointment = /* GraphQL */ `
   mutation CreateAppointment(
     $input: CreateAppointmentInput!
@@ -120,6 +168,7 @@ export const createAppointment = /* GraphQL */ `
       doctorId
       appointmentDate
       appointmentTime
+      description
       patient {
         id
         firstName
@@ -158,6 +207,7 @@ export const updateAppointment = /* GraphQL */ `
       doctorId
       appointmentDate
       appointmentTime
+      description
       patient {
         id
         firstName
@@ -196,6 +246,7 @@ export const deleteAppointment = /* GraphQL */ `
       doctorId
       appointmentDate
       appointmentTime
+      description
       patient {
         id
         firstName

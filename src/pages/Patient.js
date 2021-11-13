@@ -1,24 +1,30 @@
 import { Auth } from 'aws-amplify';
 import { API } from 'aws-amplify';
 import React, { useState, useEffect } from 'react';
-import { getPatient} from '../graphql/queries';
+import { getDoctor, getPatient, listAppointments,listAppointmentByPatient} from '../graphql/queries';
 import { useHistory, Redirect } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import UpdatePatientModal from "./UpdatePatientModal";
+import Appointment from "./Appointment";
+import { deleteAppointment } from '../graphql/mutations';
 
 
 export default function Patient() {
 
     const [userData, setUserData] = useState({ payload: { username: '' } });
     const [patient, setPatient]= useState({ });
+    const [doctor, setDoctor]= useState({ });
+    const [appointments, setAppointments]= useState([]);
     const [errorMessages, setErrorMessages] = useState([]);
     const history = useHistory();
     const [updateModalShow, setUpdateModalShow] = React.useState(false);
+    const [updateAppointmentModalShow, setAppointmentModalShow] = React.useState(false);
     const [selectedPatient, setSelectedPatient] = useState([]);
 
     useEffect(() => {
       fetchUserData();
+      
       }, []);
 
     async function fetchUserData() {
@@ -26,14 +32,30 @@ export default function Patient() {
         .then((userSession) => {
           console.log("userData: ", userSession);
           getPatientInfo(userSession.signInUserSession.accessToken.payload.username);
+         
           setUserData(userSession.signInUserSession.accessToken);
+          fetchAppointments(userSession.signInUserSession.accessToken.payload.username);
         })
         .catch((e) => console.log("Not signed in", e));
+    }
+
+    async function fetchAppointments(userName) {
+      console.log("inside fetch appointments" );
+      try {
+          const apiData = await API.graphql({ query: listAppointmentByPatient, variables: { patientId: userName ,appointmentDate: new Date().toISOString().slice(0, 10) }  });
+          console.log(apiData.data.listAppointments.items);
+          setAppointments(apiData.data.listAppointments.items);
+      }catch(e){
+          console.error('error fetching appointments', e);
+          setErrorMessages(e.errors);
+      }
+      
     }
 
     async function getPatientInfo(userName) {
         try {
           const apiData = await API.graphql({ query: getPatient, variables: { id: userName } } );
+          console.log(apiData.data.getPatient)
           if (apiData.data.getPatient == null) {
             history.push("/createpatient")
           }
@@ -49,7 +71,26 @@ export default function Patient() {
       setUpdateModalShow(true);
     }
 
+    function openAppointment(patient) {
+      setSelectedPatient(patient);
+      setAppointmentModalShow(true);
+    }
+  
+    async function deleteAppointmentById({ id }) {
+
+      try {
+        console.log("inside delete appointment " + id);
+        const newAppointmentArray = appointments.filter(appointment => appointment.id !== id);
+        setAppointments(newAppointmentArray);
+        await API.graphql({ query: deleteAppointment, variables: { input: { id } }});
+ 
+
+      }catch (e) {
+          console.error('error deleting appointment', e);
+          setErrorMessages(e.errors);
+      }
     
+    }
 
     return (
         <div className='patient'>
@@ -68,6 +109,9 @@ export default function Patient() {
                         </Col>
                         <Col style={{ fontSize: "1rem" }}>
                           <b>Address :</b> {patient.address}
+                        </Col>
+                        <Col style={{ fontSize: "1rem" }}>
+                          <b>Birthdate :</b> {patient.birthDate ? patient.birthDate.substring(0,"yyy-mm-dd".length+1) : ""}
                         </Col>
                         <Col style={{ fontSize: "1rem" }}>
                         <b>Sex :</b> {patient.sex}
@@ -98,7 +142,53 @@ export default function Patient() {
                   onUpdated={() => getPatientInfo(patient.id)}
                   onHide={() => setUpdateModalShow(false)}
                 />
-            <h1>Appointments</h1>
+            <h1>Upcoming Appointments</h1>
+            <div >
+
+<table>
+      <thead>
+        <tr>
+          <th>Appointment Date</th>
+          <th>Appointment Time</th>
+          <th>Preferred Doctor</th>
+          <th>Reason for visit</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      {
+      appointments.map(appointment => (
+            <tr key={appointment.id || appointment.appointmentDate} >
+              <td>{appointment.appointmentDate}</td>
+              <td>{appointment.appointmentTime}</td>
+              <td> {appointment.doctor != null ? appointment.doctor.firstName +" "+appointment.doctor.lastName : ""}</td>
+              <td>{appointment.description}</td>
+              <td><button onClick={() => deleteAppointmentById(appointment)}>Delete</button></td>
+              
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+    </div>
+
+            <div>
+            <Button
+                              variant="success"
+                              block
+                              size="sm"
+                              onClick={() => openAppointment(patient)}
+                            >
+                              Take Another Appointment
+                            </Button>
+            </div>
+
+            <Appointment
+                  show={updateAppointmentModalShow}
+                  patient={selectedPatient}
+                  onUpdated={() => getPatientInfo(patient.id)}
+                  onHide={() => setAppointmentModalShow(false)}
+                />
         </div>
     );
 }

@@ -91,6 +91,45 @@ export const onDeleteDoctor = /* GraphQL */ `
     }
   }
 `;
+export const onCreatePrescription = /* GraphQL */ `
+  subscription OnCreatePrescription {
+    onCreatePrescription {
+      id
+      appointmentId
+      patientId
+      fileName
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdatePrescription = /* GraphQL */ `
+  subscription OnUpdatePrescription {
+    onUpdatePrescription {
+      id
+      appointmentId
+      patientId
+      fileName
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeletePrescription = /* GraphQL */ `
+  subscription OnDeletePrescription {
+    onDeletePrescription {
+      id
+      appointmentId
+      patientId
+      fileName
+      description
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateAppointment = /* GraphQL */ `
   subscription OnCreateAppointment {
     onCreateAppointment {
@@ -99,6 +138,7 @@ export const onCreateAppointment = /* GraphQL */ `
       doctorId
       appointmentDate
       appointmentTime
+      description
       patient {
         id
         firstName
@@ -134,6 +174,7 @@ export const onUpdateAppointment = /* GraphQL */ `
       doctorId
       appointmentDate
       appointmentTime
+      description
       patient {
         id
         firstName
@@ -169,6 +210,7 @@ export const onDeleteAppointment = /* GraphQL */ `
       doctorId
       appointmentDate
       appointmentTime
+      description
       patient {
         id
         firstName
