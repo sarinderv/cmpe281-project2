@@ -97,8 +97,31 @@ export const onCreatePrescription = /* GraphQL */ `
       id
       appointmentId
       patientId
+      doctorId
       fileName
       description
+      doctor {
+        id
+        firstName
+        lastName
+        phone
+        address
+        createdAt
+        updatedAt
+      }
+      patient {
+        id
+        firstName
+        lastName
+        insuranceNumber
+        ssn
+        birthDate
+        phone
+        address
+        sex
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -110,8 +133,31 @@ export const onUpdatePrescription = /* GraphQL */ `
       id
       appointmentId
       patientId
+      doctorId
       fileName
       description
+      doctor {
+        id
+        firstName
+        lastName
+        phone
+        address
+        createdAt
+        updatedAt
+      }
+      patient {
+        id
+        firstName
+        lastName
+        insuranceNumber
+        ssn
+        birthDate
+        phone
+        address
+        sex
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -123,8 +169,31 @@ export const onDeletePrescription = /* GraphQL */ `
       id
       appointmentId
       patientId
+      doctorId
       fileName
       description
+      doctor {
+        id
+        firstName
+        lastName
+        phone
+        address
+        createdAt
+        updatedAt
+      }
+      patient {
+        id
+        firstName
+        lastName
+        insuranceNumber
+        ssn
+        birthDate
+        phone
+        address
+        sex
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }

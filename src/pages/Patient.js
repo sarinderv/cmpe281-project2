@@ -1,8 +1,8 @@
 import { Auth } from 'aws-amplify';
-import { API } from 'aws-amplify';
+import { API,Storage } from 'aws-amplify';
 import React, { useState, useEffect } from 'react';
 import {  getPatient} from '../graphql/queries';
-import { listAppointmentByPatient} from '../graphql/customQueries';
+import { listAppointmentByPatient, listPrescriptionByPatient} from '../graphql/customQueries';
 import { useHistory, Redirect } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -17,6 +17,7 @@ export default function Patient() {
     const [patient, setPatient]= useState({ });
     const [doctor, setDoctor]= useState({ });
     const [appointments, setAppointments]= useState([]);
+    const [prescriptions, setPrescriptions]= useState([]);
     const [errorMessages, setErrorMessages] = useState([]);
     const history = useHistory();
     const [updateModalShow, setUpdateModalShow] = React.useState(false);
@@ -36,6 +37,7 @@ export default function Patient() {
          
           setUserData(userSession.signInUserSession.accessToken);
           fetchAppointments(userSession.signInUserSession.accessToken.payload.username);
+          fetchPrescriptions(userSession.signInUserSession.accessToken.payload.username);
         })
         .catch((e) => console.log("Not signed in", e));
     }
@@ -48,6 +50,20 @@ export default function Patient() {
           setAppointments(apiData.data.listAppointments.items);
       }catch(e){
           console.error('error fetching appointments', e);
+          setErrorMessages(e.errors);
+      }
+      
+    }
+
+
+    async function fetchPrescriptions(userName) {
+      console.log("inside fetch prescriptions" );
+      try {
+          const apiData = await API.graphql({ query: listPrescriptionByPatient, variables: { patientId: userName }  });
+          console.log(apiData.data.listPrescriptions.items);
+          setPrescriptions(apiData.data.listPrescriptions.items);
+      }catch(e){
+          console.error('error fetching prescriptions', e);
           setErrorMessages(e.errors);
       }
       
@@ -143,16 +159,49 @@ export default function Patient() {
                   onUpdated={() => getPatientInfo(patient.id)}
                   onHide={() => setUpdateModalShow(false)}
                 />
-            <h1>Upcoming Appointments</h1>
-            <div >
 
+
+
+
+
+<div >
+        <h2>Ongoing treatment</h2>
+<table>
+      <thead>
+        <tr>
+          <th>Treated by</th>
+          <th>Prescription</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+      {
+      prescriptions.map(prescription => (
+            <tr key={prescription.id || prescription.patientId} >
+              <td>{prescription.doctor != null ? prescription.doctor.firstName +" "+prescription.doctor.lastName : ""}</td>
+              <td>{prescription.fileName}</td>
+              <td>{prescription.description != null ?  prescription.description : ""} </td>              
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+    </div>
+
+
+
+
+
+
+        <div >
+        <h2>Upcoming Appointments</h2>
 <table>
       <thead>
         <tr>
           <th>Appointment Date</th>
           <th>Appointment Time</th>
-          <th>Preferred Doctor</th>
-          <th>Reason for visit</th>
+          <th>Doctor Appointed</th>
+          <th>Medical condition</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -174,7 +223,9 @@ export default function Patient() {
     </div>
 
             <div>
-            <Button
+            <Container>
+          
+              <Button
                               variant="success"
                               block
                               size="sm"
@@ -182,6 +233,9 @@ export default function Patient() {
                             >
                               Take Another Appointment
                             </Button>
+              
+              </Container>
+          
             </div>
 
             <Appointment
