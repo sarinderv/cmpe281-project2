@@ -111,6 +111,7 @@ export default function Doctor() {
                     <th>Appointment Time</th>
                     <th>Patient</th>
                     <th>Phone</th>
+                    <th>Reason for visit</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -121,6 +122,7 @@ export default function Doctor() {
                         <td>{appointment.appointmentTime}</td>
                         <td> {appointment.patient != null ? appointment.patient.firstName +" "+appointment.patient.lastName : ""}</td>
                         <td>{appointment.patient.phone}</td>
+                        <td>{appointment.description}</td>
                         <td><button onClick={() =>{ setAppointment(appointment);setAddModalShow(true)}}>Upload Prescription</button></td> 
                         <td><button onClick={() =>{ setAppointment(appointment);setViewModalShow(true)}}>View Prescription</button></td> 
                       </tr>

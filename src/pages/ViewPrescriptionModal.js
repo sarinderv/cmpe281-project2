@@ -11,7 +11,6 @@ export default function ViewPrescriptionModal(props) {
 
     useEffect(() => {
       async function fetchData() {
-        console.log(props.appointment.id, props.appointment.patientId);
         fetchPrescription(props.appointment.id, props.appointment.patientId);
       }
       
