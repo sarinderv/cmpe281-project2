@@ -163,7 +163,7 @@ export default function Patient() {
               <td>{appointment.appointmentDate}</td>
               <td>{appointment.appointmentTime}</td>
               <td> {appointment.doctor != null ? appointment.doctor.firstName +" "+appointment.doctor.lastName : ""}</td>
-              <td>{appointment.description}</td>
+              <td>{appointment.description != null ?  appointment.description : ""} </td>
               <td><button onClick={() => deleteAppointmentById(appointment)}>Delete</button></td>
               
             </tr>

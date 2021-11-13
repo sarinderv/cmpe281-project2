@@ -7,6 +7,7 @@ query listAppointmentByPatient($patientId: ID!,$appointmentDate: String!) {
       appointmentTime
       doctorId
       patientId
+      description
       doctor {
         firstName
         lastName
@@ -25,6 +26,7 @@ query listAppointmentByDoctor($doctorId: ID!, $appointmentDate: String!) {
       appointmentTime
       doctorId
       patientId
+      description
       patient {
         firstName
         lastName
