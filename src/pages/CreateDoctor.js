@@ -30,8 +30,8 @@ export default function CreateDoctor() {
       Auth.currentAuthenticatedUser()
         .then((userSession) => {
           const username = userSession.signInUserSession.accessToken.payload.username;
-          API.graphql({ query: createDoctor, variables: { input: { firstName: fields.FirstName, lastName: fields.LastName, id: username, phone: fields.PhoneNumber, address: fields.City } } });
-          history.push("/");
+          API.graphql({ query: createDoctor, variables: { input: { firstName: fields.FirstName, lastName: fields.LastName, id: username, phone: fields.PhoneNumber, address: fields.City } } })
+            .then(resp => history.push("/"));
         });
     }
     if (err) {
