@@ -39,3 +39,9 @@ type Appointment @model {
   patient: Patient @connection(fields: ["patientId"])
   doctor: Doctor @connection(fields: ["doctorId"])
 }
+
+type Service @model {
+  id: ID!
+  serviceName: String!
+  serviceDescription: String
+  }

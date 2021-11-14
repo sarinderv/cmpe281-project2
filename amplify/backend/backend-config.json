@@ -114,12 +114,5 @@
       "build": true
     }
   },
-  "predictions": {
-    "identifyText": {
-      "providerPlugin": "awscloudformation",
-      "service": "RekognitionAndTextract",
-      "dependsOn": [],
-      "identifyType": "identifyText"
-    }
-  }
+  "predictions": {}
 }
