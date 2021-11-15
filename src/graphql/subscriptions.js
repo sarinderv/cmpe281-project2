@@ -238,3 +238,36 @@ export const onDeleteAppointment = /* GraphQL */ `
     }
   }
 `;
+export const onCreateService = /* GraphQL */ `
+  subscription OnCreateService {
+    onCreateService {
+      id
+      serviceName
+      serviceDescription
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateService = /* GraphQL */ `
+  subscription OnUpdateService {
+    onUpdateService {
+      id
+      serviceName
+      serviceDescription
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteService = /* GraphQL */ `
+  subscription OnDeleteService {
+    onDeleteService {
+      id
+      serviceName
+      serviceDescription
+      createdAt
+      updatedAt
+    }
+  }
+`;

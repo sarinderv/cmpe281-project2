@@ -18,6 +18,16 @@ const SideNav = (props) => {
             path: '/patient',
             icon: <FaIcons.FaDollarSign />,
             cName: 'nav-text'
+        },
+        {
+            title: 'Admin',
+            path: '/admin',
+            cName: 'nav-text'
+        },
+        {
+            title: 'Service',
+            path: '/service',
+            cName: 'nav-text'
         }
     ];
 

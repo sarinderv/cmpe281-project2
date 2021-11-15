@@ -187,3 +187,32 @@ export const listAppointments = /* GraphQL */ `
     }
   }
 `;
+export const getService = /* GraphQL */ `
+  query GetService($id: ID!) {
+    getService(id: $id) {
+      id
+      serviceName
+      serviceDescription
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listServices = /* GraphQL */ `
+  query ListServices(
+    $filter: ModelServiceFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listServices(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        serviceName
+        serviceDescription
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

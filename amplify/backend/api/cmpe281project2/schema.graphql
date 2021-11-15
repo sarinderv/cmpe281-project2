@@ -22,8 +22,11 @@ type Prescription @model {
   id: ID!
   appointmentId: ID!
   patientId: ID!
+  doctorId: ID
   fileName: String
   description: String
+  doctor: Doctor @connection(fields: ["doctorId"])
+  patient: Patient @connection(fields: ["patientId"])
 }
 
 type Appointment @model {
@@ -36,3 +39,9 @@ type Appointment @model {
   patient: Patient @connection(fields: ["patientId"])
   doctor: Doctor @connection(fields: ["doctorId"])
 }
+
+type Service @model {
+  id: ID!
+  serviceName: String!
+  serviceDescription: String
+  }
