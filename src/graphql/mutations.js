@@ -118,8 +118,31 @@ export const createPrescription = /* GraphQL */ `
       id
       appointmentId
       patientId
+      doctorId
       fileName
       description
+      doctor {
+        id
+        firstName
+        lastName
+        phone
+        address
+        createdAt
+        updatedAt
+      }
+      patient {
+        id
+        firstName
+        lastName
+        insuranceNumber
+        ssn
+        birthDate
+        phone
+        address
+        sex
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -134,8 +157,31 @@ export const updatePrescription = /* GraphQL */ `
       id
       appointmentId
       patientId
+      doctorId
       fileName
       description
+      doctor {
+        id
+        firstName
+        lastName
+        phone
+        address
+        createdAt
+        updatedAt
+      }
+      patient {
+        id
+        firstName
+        lastName
+        insuranceNumber
+        ssn
+        birthDate
+        phone
+        address
+        sex
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -150,8 +196,31 @@ export const deletePrescription = /* GraphQL */ `
       id
       appointmentId
       patientId
+      doctorId
       fileName
       description
+      doctor {
+        id
+        firstName
+        lastName
+        phone
+        address
+        createdAt
+        updatedAt
+      }
+      patient {
+        id
+        firstName
+        lastName
+        insuranceNumber
+        ssn
+        birthDate
+        phone
+        address
+        sex
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }

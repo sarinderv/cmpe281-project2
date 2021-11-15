@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SideNav from './components/SideNav';
 import Doctor from './pages/Doctor';
 import Patient from './pages/Patient';
-import TestPatient from './pages/TestPatient';
+import ParsePrescription from './pages/ParsePrescription';
 import CreateDoctor from './pages/CreateDoctor';
 import CreatePatient from './pages/CreatePatient';
 import Admin from './pages/Admin';
@@ -75,6 +75,7 @@ function App() {
               <Route path='/createdoctor' component={CreateDoctor} />
               <Route path="/admin" component={Admin} />
               <Route path="/service" component={Service} />
+              <Route path="/prescription" component={ParsePrescription} />
             </Switch>
           </Router>
       <hr />

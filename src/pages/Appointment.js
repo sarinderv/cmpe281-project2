@@ -128,9 +128,11 @@ export default function Appointment(props) {
 
             </Form.Control>
         </Form.Group>   
+
         <Form.Group controlId="description">
-            <Form.Label>Reason for Appointment</Form.Label>
+            <Form.Label>Reason for visit</Form.Label>
             <Form.Control
+              
               value={fields.description}
               type="text"
               onChange={handleFieldChange}
