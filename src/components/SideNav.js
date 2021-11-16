@@ -1,38 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AmplifySignOut } from '@aws-amplify/ui-react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
+import * as GiIcons from "react-icons/gi";
+import * as User from './User';
 
 const SideNav = (props) => {
 
-    const SidebarData = [
+    const SidebarData = function(isDoctor, isAdmin) { return [
         {
             title: 'Doctor',
             path: '/',
-            icon: <AiIcons.AiFillHome />,
-            cName: 'nav-text'
+            icon: <AiIcons.AiFillHeart />,
+            cName: 'nav-text',
+            show: isAdmin || isDoctor
         },
         {
             title: 'Patient',
             path: '/patient',
-            icon: <FaIcons.FaDollarSign />,
-            cName: 'nav-text'
+            icon: <GiIcons.GiHealthNormal />,
+            cName: 'nav-text',
+            show: true // always show this nav item?
         },
         {
             title: 'Admin',
             path: '/admin',
-            cName: 'nav-text'
+            icon: <FaIcons.FaUserLock />,
+            cName: 'nav-text',
+            show: isAdmin
         },
         {
             title: 'Service',
             path: '/service',
-            cName: 'nav-text'
+            icon: <AiIcons.AiFillSetting />,
+            cName: 'nav-text',
+            show: isAdmin
         }
-    ];
+    ]};
 
     const [sidebar, setSidebar] = useState(false);
+    const [sidebarData, setSidebarData] = useState(SidebarData());
     const showSidebar = () => setSidebar(!sidebar);
+
+    useEffect(() => {
+        fetchRoles();
+    }, [sidebar]);
+
+    async function fetchRoles() {
+        const admin = await User.isAdmin();
+        const doctor = await User.isDoctor();
+        const updatedSideBarData = SidebarData(doctor, admin);
+        console.log('updatedSideBarData', updatedSideBarData);
+        setSidebarData(updatedSideBarData);
+    }
 
     return (
         <>
@@ -50,14 +71,14 @@ const SideNav = (props) => {
                             <AiIcons.AiOutlineClose />
                         </Link>
                     </li>
-                    {SidebarData.map((item, index) => {
-                        return (
+                    {sidebarData.map((item, index) => {
+                        return ( item.show ?
                             <li key={index} className={item.cName}>
                                 <Link to={item.path}>
                                     {item.icon}
                                     <span>{item.title}</span>
                                 </Link>
-                            </li>
+                            </li> : ""
                         );
                     })}
                 </ul>
