@@ -28,6 +28,10 @@
         "jwtauth": {
           "deploymentBucketName": "amplify-cmpe281project2-sampledev-201600-deployment",
           "s3Key": "amplify-builds/jwtauth-356f3978522b4e65336f-build.zip"
+        },
+        "AppointmentEmail": {
+          "deploymentBucketName": "amplify-cmpe281project2-sampledev-201600-deployment",
+          "s3Key": "amplify-builds/AppointmentEmail-37544c352f486a327965-build.zip"
         }
       },
       "interactions": {
