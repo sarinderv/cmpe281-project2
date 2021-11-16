@@ -25,7 +25,7 @@ export default function ViewPrescriptionModal(props) {
       const prescriptionFromAPI = apiData.data.listPrescriptions.items;
 
       await Promise.all(prescriptionFromAPI.map(async prescription => {
-      const content = await Storage.get(apiData.data.listPrescriptions.items[0].fileName,{ level: "private", });
+      const content = await Storage.get(prescription.fileName,{ level: "private", });
       prescription.content = content;
       return prescription;
       }))

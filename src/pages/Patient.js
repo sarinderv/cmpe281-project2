@@ -64,7 +64,9 @@ export default function Patient() {
           console.log(apiData.data.listPrescriptions.items);
           const prescriptionFromAPI  = apiData.data.listPrescriptions.items
           await Promise.all(prescriptionFromAPI.map(async prescription => {
-            const content = await Storage.get(apiData.data.listPrescriptions.items[0].fileName,{ level: "private", });
+            console.log(prescription.fileName);
+            const content = await Storage.get(prescription.fileName,{ level: "private", });
+            console.log(content);
             prescription.content = content;
             return prescription;
             }))
@@ -101,6 +103,14 @@ export default function Patient() {
       setSelectedPatient(patient);
       setAppointmentModalShow(true);
     }
+
+    function onHideAppointmentModal(patient) {
+      console.log("inside onHideAppointmentModal")
+      setSelectedPatient(patient);
+      setAppointmentModalShow(false);
+      fetchAppointments(patient.id);
+    
+    }
   
     async function deleteAppointmentById({ id }) {
 
@@ -117,6 +127,7 @@ export default function Patient() {
       }
     
     }
+    
 
     return (
         <div className='patient'>
@@ -170,14 +181,12 @@ export default function Patient() {
                 />
 
 
-
-
-
 <div >
         <h2>Ongoing treatment</h2>
 <table>
       <thead>
         <tr>
+           {/* <th>ID</th> */}
           <th>Treated by</th>
           <th>Prescription</th>
           <th>Description</th>
@@ -186,12 +195,15 @@ export default function Patient() {
       <tbody>
       {
       prescriptions.map(prescription => (
-            <tr key={prescription.id || prescription.patientId} >
+        
+            <tr key={prescription.id} >
+                {/* <td>{prescription.id}</td> */}
               <td>{prescription.doctor != null ? prescription.doctor.firstName +" "+prescription.doctor.lastName : ""}</td>
               <td>
                     {
                       prescription.content && <a href={prescription.content} download={prescription.fileName}>
                         {
+                        
                           <AmplifyS3Image level="private" imgKey={prescription.fileName} alt={prescription.fileName.slice(prescription.fileName.lastIndexOf('/') + 1)} /> 
                         }
                       </a>
@@ -254,7 +266,7 @@ export default function Patient() {
                   show={updateAppointmentModalShow}
                   patient={selectedPatient}
                   onUpdated={() => getPatientInfo(patient.id)}
-                  onHide={() => setAppointmentModalShow(false)}
+                  onHide={() => onHideAppointmentModal(patient)}
                 />
         </div>
     );
