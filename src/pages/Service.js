@@ -14,7 +14,7 @@ import { useFormFields } from "../lib/hooksLib";
 import { API, graphqlOperation } from 'aws-amplify';
 import { createService } from "../graphql/mutations";
 import { useHistory } from "react-router-dom";
-import { listServices } from "../graphql/queries";
+import { getService, listServices } from "../graphql/queries";
 
 function Service() {
   const [userData, setUserData] = useState({ payload: { username: '' } });
@@ -22,6 +22,7 @@ function Service() {
   const [resData, setResData] = useState({});
   const [showAlert, setShowAlert] = useState(false);
   const [services, setServices] = useState([]);
+  const [singleService, setSingleService] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -89,6 +90,21 @@ async function listServiceInfo() {
         }
       }
 
+      async function getServiceInfo(id) {
+        try {
+          const apiData = await API.graphql({ query: getService, variables: { id: id } } );
+          if (apiData.data.getDoctor == null) {
+            history.push("/service")
+          }
+          setSingleService(apiData.data.getService);
+          console.log(singleService)
+        } catch (e) {
+            console.error('error fetching service', e);
+            setErrorMessages(e.errors);
+        }
+      }
+
+
   return (
     <Container>
       <Row>
@@ -149,7 +165,7 @@ async function listServiceInfo() {
             <td>{element.serviceName}</td>
             <td>{element.serviceDescription}</td>
             <td>
-              <Button variant="primary" onClick={(element) => alert(element.id)}>Edit</Button>{' '}
+              <Button variant="primary" onClick={() => getServiceInfo(element.id)}>Edit</Button>{' '}
               <Button variant="danger">Delete</Button>
             </td>
           </tr>
