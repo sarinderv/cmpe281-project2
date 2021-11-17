@@ -8,6 +8,7 @@ type Patient @model {
   phone: String
   address: String
   sex: String
+  email: String!
 }
 
 type Doctor @model {

@@ -149,6 +149,9 @@ export default function Patient() {
                           <b>Phone :</b> {patient.phone}
                         </Col>
                         <Col style={{ fontSize: "1rem" }}>
+                          <b>Email :</b> {patient.email}
+                        </Col>
+                        <Col style={{ fontSize: "1rem" }}>
                           <b>Address :</b> {patient.address}
                         </Col>
                         <Col style={{ fontSize: "1rem" }}>

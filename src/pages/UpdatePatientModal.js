@@ -33,7 +33,7 @@ export default function UpdatePatientModal(props) {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      await API.graphql({ query: updatePatient, variables: { input: {id: props.patient.id,firstName: fields.firstName,lastName: fields.lastName, phone: fields.phone, address: fields.address,sex: fields.sex, ssn: fields.ssn,
+      await API.graphql({ query: updatePatient, variables: { input: {id: props.patient.id,firstName: fields.firstName,lastName: fields.lastName, phone: fields.phone,email: fields.email, address: fields.address,sex: fields.sex, ssn: fields.ssn,
       insuranceNumber: fields.insuranceNumber, birthDate: fields.birthDate+'T00:00:00.000Z'} } });
     } catch (e) {
       console.error('error updating patient', e);
@@ -83,6 +83,15 @@ export default function UpdatePatientModal(props) {
             <Form.Control
               value={fields.phone}
               placeholder={props.patient.phone}
+              type="text"
+              onChange={handleFieldChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              value={fields.email}
+              placeholder={props.patient.email}
               type="text"
               onChange={handleFieldChange}
             />

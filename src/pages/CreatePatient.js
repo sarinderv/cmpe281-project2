@@ -57,7 +57,7 @@ export default function CreatePatient() {
     async function handleSubmit(event) {
       event.preventDefault();
       try {
-        await API.graphql({ query: createPatient, variables: { input: {firstName: fields.firstName, lastName: fields.lastName, id: userData.payload.username, phone: fields.phone, address: fields.address,
+        await API.graphql({ query: createPatient, variables: { input: {firstName: fields.firstName, lastName: fields.lastName, id: userData.payload.username, phone: fields.phone, email: fields.email, address: fields.address,
             birthDate: fields.birthDate+'T00:00:00.000Z', sex: fields.sex, ssn: fields.ssn, insuranceNumber: fields.insuranceNumber} } });
       } catch (e) {
         console.error('error registering patient', e);
@@ -90,6 +90,14 @@ export default function CreatePatient() {
             <Form.Control
               type="text"
               value={fields.phone}
+              onChange={handleFieldChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="email" size="lg">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="text"
+              value={fields.email}
               onChange={handleFieldChange}
             />
           </Form.Group>
