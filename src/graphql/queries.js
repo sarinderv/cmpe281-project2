@@ -13,6 +13,7 @@ export const getPatient = /* GraphQL */ `
       phone
       address
       sex
+      email
       createdAt
       updatedAt
     }
@@ -35,6 +36,7 @@ export const listPatients = /* GraphQL */ `
         phone
         address
         sex
+        email
         createdAt
         updatedAt
       }
@@ -103,6 +105,7 @@ export const getPrescription = /* GraphQL */ `
         phone
         address
         sex
+        email
         createdAt
         updatedAt
       }
@@ -144,6 +147,7 @@ export const listPrescriptions = /* GraphQL */ `
           phone
           address
           sex
+          email
           createdAt
           updatedAt
         }
@@ -173,6 +177,7 @@ export const getAppointment = /* GraphQL */ `
         phone
         address
         sex
+        email
         createdAt
         updatedAt
       }
@@ -214,6 +219,7 @@ export const listAppointments = /* GraphQL */ `
           phone
           address
           sex
+          email
           createdAt
           updatedAt
         }

@@ -13,6 +13,7 @@ export const onCreatePatient = /* GraphQL */ `
       phone
       address
       sex
+      email
       createdAt
       updatedAt
     }
@@ -30,6 +31,7 @@ export const onUpdatePatient = /* GraphQL */ `
       phone
       address
       sex
+      email
       createdAt
       updatedAt
     }
@@ -47,6 +49,7 @@ export const onDeletePatient = /* GraphQL */ `
       phone
       address
       sex
+      email
       createdAt
       updatedAt
     }
@@ -119,6 +122,7 @@ export const onCreatePrescription = /* GraphQL */ `
         phone
         address
         sex
+        email
         createdAt
         updatedAt
       }
@@ -155,6 +159,7 @@ export const onUpdatePrescription = /* GraphQL */ `
         phone
         address
         sex
+        email
         createdAt
         updatedAt
       }
@@ -191,6 +196,7 @@ export const onDeletePrescription = /* GraphQL */ `
         phone
         address
         sex
+        email
         createdAt
         updatedAt
       }
@@ -218,6 +224,7 @@ export const onCreateAppointment = /* GraphQL */ `
         phone
         address
         sex
+        email
         createdAt
         updatedAt
       }
@@ -254,6 +261,7 @@ export const onUpdateAppointment = /* GraphQL */ `
         phone
         address
         sex
+        email
         createdAt
         updatedAt
       }
@@ -290,6 +298,7 @@ export const onDeleteAppointment = /* GraphQL */ `
         phone
         address
         sex
+        email
         createdAt
         updatedAt
       }
