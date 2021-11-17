@@ -12,6 +12,9 @@ query listAppointmentByPatient($patientId: ID!,$appointmentDate: String!) {
         firstName
         lastName
       }
+      patient{
+        email
+      }
     }
   }
 }
