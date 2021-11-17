@@ -48,7 +48,11 @@ export default function Patient() {
       try {
           const apiData = await API.graphql({ query: listAppointmentByPatient, variables: { patientId: userName ,appointmentDate: new Date().toISOString().slice(0, 10) }  });
           console.log(apiData.data.listAppointments.items);
-          setAppointments(apiData.data.listAppointments.items);
+          function sortFunction(a, b) {
+            return a.appointmentDate < b.appointmentDate ? 1 : -1;
+          }
+          const sortedData = apiData.data.listAppointments.items.sort(sortFunction);
+          setAppointments(sortedData);
       }catch(e){
           console.error('error fetching appointments', e);
           setErrorMessages(e.errors);
