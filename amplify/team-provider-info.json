@@ -31,7 +31,7 @@
         },
         "AppointmentEmail": {
           "deploymentBucketName": "amplify-cmpe281project2-sampledev-201600-deployment",
-          "s3Key": "amplify-builds/AppointmentEmail-2f79584e7a35342b5572-build.zip"
+          "s3Key": "amplify-builds/AppointmentEmail-69534958533044414a65-build.zip"
         }
       },
       "interactions": {
