@@ -13,7 +13,7 @@ import {
   Form,
   Alert
 } from "react-bootstrap";
-import { createDoctor, deleteDoctor } from '../../graphql/mutations';
+import { createDoctor, deleteDoctor, deletePatient } from '../../graphql/mutations';
 import { useFormFields } from '../../lib/hooksLib';
 import UpdateDoctorModal from '../UpdateDoctorModal';
 
@@ -119,7 +119,7 @@ export default function ListPatient()
   {
     try
     {
-      await API.graphql({ query: deleteDoctor, variables: { input: { id : id}}});
+      await API.graphql({ query: deletePatient, variables: { input: { id : id}}});
     } catch(e)
     {
       console.error('error deleting patient', e);
