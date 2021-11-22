@@ -1,8 +1,13 @@
-# Team Duke - Project#2 - CMPE 281
+# Duke Patient Portal
+
+## Team Duke - Project#2 - CMPE 281
 
 University Name: http://www.sjsu.edu
+
 Course: CMPE 281 - [Cloud Technologies](http://info.sjsu.edu/web-dbgen/catalog/courses/CMPE281.html)
+
 Professor: [Sanjay Garje](https://www.linkedin.com/in/sanjaygarje)
+
 Students: 
 - [Sarinder Virk](https://www.linkedin.com/in/sarinder)
 - [Serdar Demirci]()
@@ -11,18 +16,45 @@ Students:
 
 ## Project Introduction
 
-(What the application does, feature list)
+Duke Patient Portal is a simple low-cost SaaS offering intended for use by Patients and Health Providers in developing nations and emerging economies. The solution allows Patients to manage their health provider information and simple workflow such as scheduling visits. We deliver a Proof-of-Concept (POC) application with a MVP feature set consisting of user login/authentication (SSO/SSL/TLS/MFA), modern web UI, GraphQL APIs, and a microservices/lambda style. We  designed and develop the software as a low-cost, scalable, available, distributed, robust, and secure app in the AWS cloud.
 
 ## Sample Demo Screenshots
 
-## Pre-requisites Set Up
+Patient's prescriptions and upcoming appointments:
+![image](https://user-images.githubusercontent.com/4393945/142808831-256c5d11-6f16-4df5-af1c-f985f2e65a17.png)
 
-Here include bullet point list of resources one need to configure in their cloud account. (E.g. For AWS: S3 buckets, CloudFront etc)
-List of required software to download locally (E.g. Spring, JDK, Eclipse IDE etc. )
+Register a doctor in the system using a form or chatbot:
+![image](https://user-images.githubusercontent.com/4393945/142808642-2b7d692e-712d-4ebc-8698-2f5bea5cb9e5.png)
+
+## Pre-requisites
+
+1. [Install npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm)
+2. [Install and configure amplify CLI](https://docs.amplify.aws/cli/start/install/)
+3. [Clone this git repo using amplify](https://docs.amplify.aws/cli/start/workflows/#clone-sample-amplify-project)
+
+## Project Set-up
+
+`amplify init --app https://github.com/sarinderv/cmpe281-project2` will initialize locally.
+
+`amplify push` will then create the following resources in the AWS cloud:
+- S3 buckets (hosting the frontend + for prescription upload/download)
+- Cloudfront distribution (for frontend distribution)
+- DynamoDB (for database storage)
+- AppSync (for GraphQL API between frontend and database)
+- Lambda (for appointment emails via SES)
+- Lex resources (for chatbot)
+
+All of the CloudFormation templates are in https://github.com/sarinderv/cmpe281-project2/tree/master/amplify/backend.
 
 ## Local configuration
-How to set up and run project locally?
-Here include quick steps on how to compile and run your project on local machine (whichever you used, Mac or Windows either one).
+
+How to set up and run project locally:
+- `git clone https://github.com/sarinderv/cmpe281-project2`
+- `cd cmpe281-project2`
+- `npm init`
+- `npm start`
+
+Will open browser to http://localhost:3000
 
 ## Architecture
 
