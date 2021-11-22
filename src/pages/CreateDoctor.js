@@ -3,16 +3,17 @@ import { AmplifyChatbot } from "@aws-amplify/ui-react";
 import React, { useState, useEffect } from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useFormFields } from "../lib/hooksLib";
 import { API } from 'aws-amplify';
 import "./CreateDoctor.css";
 import { createDoctor } from '../graphql/mutations';
+import { isAdmin } from '../components/User';
 
-export default function CreateDoctor() {
-
+export default function CreateDoctor(props) {
   const [userData, setUserData] = useState({ payload: { username: '' } });
   const [errorMessages, setErrorMessages] = useState([]);
+  const [adminRole, setAdminRole] = useState(false);
   const [fields, handleFieldChange] = useFormFields({
     fistName: "",
     lastName: "",
@@ -41,6 +42,7 @@ export default function CreateDoctor() {
 
   useEffect(() => {
     fetchUserData();
+    fetchRoles();
     const chatbotElement = document.querySelector("amplify-chatbot");
     chatbotElement.addEventListener("chatCompleted", handleChatComplete);
     return function cleanup() {
@@ -78,12 +80,37 @@ export default function CreateDoctor() {
       console.error('error creating doctor', e);
       setErrorMessages(e.errors);
     }
+
+
+
     history.push("/");
+  }
+
+  async function fetchRoles() {
+    const admin = await isAdmin();
+    setAdminRole(admin);
+}
+  function RenderListDoctorButton()
+  {
+    if(adminRole)
+    {
+      return (
+        <Button variant="primary" onClick={() => {
+          history.push('/listdoctor')
+        }}>
+          List Doctor
+        </Button>
+      )
+    }
+    return (
+      <></>
+    )
   }
 
   function renderForm() {
     return (
       <div>
+        <RenderListDoctorButton />
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="firstName" size="lg">
             <Form.Label>First Name</Form.Label>
