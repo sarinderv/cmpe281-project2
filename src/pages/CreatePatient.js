@@ -78,7 +78,7 @@ export default function CreatePatient() {
       {
         return (
           <Button variant="primary" onClick={() => {
-            history.push('/listdoctor')
+            history.push('/listpatient')
           }}>
             List Patient
           </Button>
