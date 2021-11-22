@@ -7,9 +7,10 @@ import { useFormFields } from "../lib/hooksLib";
 import { API } from 'aws-amplify';
 import "./CreatePatient.css";
 import { createPatient } from '../graphql/mutations';
+import { isAdmin } from '../components/User';
 
 export default function CreatePatient() {
-
+  const [adminRole, setAdminRole] = useState(false);
     const [userData, setUserData] = useState({ payload: { username: '' } });
     const [errorMessages, setErrorMessages] = useState([]);
     const [fields, handleFieldChange] = useFormFields({
@@ -26,6 +27,7 @@ export default function CreatePatient() {
   
     useEffect(() => {
       fetchUserData();
+      fetchRoles();
       }, []);
 
     async function fetchUserData() {
@@ -65,9 +67,32 @@ export default function CreatePatient() {
       }
       history.push("/patient");
     }
+    
+    async function fetchRoles() {
+      const admin = await isAdmin();
+      setAdminRole(admin);
+  }
+    function RenderListPatientButton()
+    {
+      if(adminRole)
+      {
+        return (
+          <Button variant="primary" onClick={() => {
+            history.push('/listdoctor')
+          }}>
+            List Doctor
+          </Button>
+        )
+      }
+      return (
+        <></>
+      )
+    }
   
     function renderForm() {
       return (
+        <div>
+          <RenderListPatientButton />
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="firstName" size="lg">
             <Form.Label>First Name</Form.Label>
@@ -145,6 +170,7 @@ export default function CreatePatient() {
             Register
           </Button>
         </Form>
+        </div>
       );
     }
   

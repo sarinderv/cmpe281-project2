@@ -13,6 +13,7 @@ import Admin from './pages/Admin';
 import Service from './pages/Service';
 import * as User from './components/User';
 import ListDoctor from './pages/Admin/ListDoctor';
+import ListPatient from './pages/Admin/ListPatient';
 // see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
 
 
@@ -58,6 +59,7 @@ function App() {
 
             {/* Admin Routes */}
             <Route path='/listdoctor' component={ListDoctor} />
+            <Route path="/listpatient" component={ListPatient} />
             </Switch>
           </Router>
       <hr />
