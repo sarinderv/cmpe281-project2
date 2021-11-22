@@ -80,7 +80,7 @@ export default function CreatePatient() {
           <Button variant="primary" onClick={() => {
             history.push('/listdoctor')
           }}>
-            List Doctor
+            List Patient
           </Button>
         )
       }
