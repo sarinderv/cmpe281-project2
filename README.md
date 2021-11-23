@@ -12,7 +12,7 @@ Students:
 - [Sarinder Virk](https://www.linkedin.com/in/sarinder)
 - [Serdar Demirci]()
 - [Sakshi Jain]()
-- [Raj K]()
+- [Raj Kinkhabwala]()
 
 ## Project Introduction
 
