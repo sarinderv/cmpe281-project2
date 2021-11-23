@@ -92,7 +92,7 @@ export default function CreatePatient() {
     function renderForm() {
       return (
         <div>
-          <RenderListPatientButton />
+          {/* <RenderListPatientButton /> */}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="firstName" size="lg">
             <Form.Label>First Name</Form.Label>

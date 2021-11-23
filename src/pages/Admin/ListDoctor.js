@@ -57,7 +57,7 @@ export default function ListDoctor()
 
     if (apiData.data.listDoctors.items == null)
     {
-      history.push('/createdoctor')
+      //history.push('/createdoctor')
     }
 
     setListDoc(apiData.data.listDoctors.items);
@@ -87,7 +87,7 @@ export default function ListDoctor()
       const apiData = await API.graphql({ query: getDoctor, variables: { id: id } } );
       //console.log(apiData);
       if (apiData.data.getDoctor == null) {
-        history.push("/createdoctor")
+        //history.push("/createdoctor")
       }
       setSingleDoctor({
         id: apiData.data.getDoctor.id,
@@ -122,12 +122,13 @@ export default function ListDoctor()
   return(
     <Container>
       <Row>
-        <Col className="m-3">
+        {/* <Col className="m-3">
           <Button variant="primary" onClick={ () => {
             history.push("/createdoctor")
           } }>Add New Doctor</Button>
           
-        </Col>
+        </Col> */}
+<br/>
         <Table striped bordered hover>
         <thead>
           <tr>

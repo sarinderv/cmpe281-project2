@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Hub } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
-import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import SideNav from './components/SideNav';
 import Doctor from './pages/Doctor';
 import Patient from './pages/Patient';
 import ParsePrescription from './pages/ParsePrescription';
 import CreateDoctor from './pages/CreateDoctor';
 import CreatePatient from './pages/CreatePatient';
-import Admin from './pages/Admin';
 import Service from './pages/Service';
 import * as User from './components/User';
 import ListDoctor from './pages/Admin/ListDoctor';
@@ -22,10 +21,12 @@ function App() {
   const listener = (data) => {
     switch (data.payload.event) {
       case 'signIn':
-        console.info('user signed in');
+        console.info('user signed in', userInfo);
         break;
       case 'signOut':
         console.info('user signed out');
+        //history.push('/');
+        window.location = '/';
         break;
       case 'signIn_failure':
         console.error('user sign in failed');

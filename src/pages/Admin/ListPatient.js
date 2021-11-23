@@ -126,12 +126,14 @@ export default function ListPatient() {
   return (
     <Container>
       <Row>
-        <Col className="m-3">
+        {/* <Col className="m-3">
           <Button variant="primary" onClick={() => {
             history.push("/createpatient")
           }}>Add New Patient</Button>
 
-        </Col>
+        </Col> */
+        <br/>
+        }
         <Table striped bordered hover>
           <thead>
             <tr>

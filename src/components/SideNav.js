@@ -1,55 +1,76 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { AmplifySignOut } from '@aws-amplify/ui-react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as GiIcons from "react-icons/gi";
 import * as User from './User';
+import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 
 const SideNav = (props) => {
 
-    const SidebarData = function(isDoctor, isAdmin) { return [
-        {
-            title: 'Doctor',
-            path: '/',
-            icon: <AiIcons.AiFillHeart />,
-            cName: 'nav-text',
-            show: isAdmin || isDoctor
-        },
-        {
-            title: 'Patient',
-            path: '/patient',
-            icon: <GiIcons.GiHealthNormal />,
-            cName: 'nav-text',
-            show: true // always show this nav item?
-        },
-        {
-            title: 'Admin',
-            path: '/admin',
-            icon: <FaIcons.FaUserLock />,
-            cName: 'nav-text',
-            show: isAdmin
-        },
-        {
-            title: 'Service',
-            path: '/service',
-            icon: <AiIcons.AiFillSetting />,
-            cName: 'nav-text',
-            show: isAdmin
-        }
-    ]};
+    const SidebarData = function (isDoctor, isAdmin) {
+        return [
+            {
+                title: 'Doctor',
+                path: '/',
+                icon: <AiIcons.AiFillHeart />,
+                cName: 'nav-text',
+                show: isDoctor
+            },
+            {
+                title: 'Patient',
+                path: '/patient',
+                icon: <GiIcons.GiHealthNormal />,
+                cName: 'nav-text',
+                show: !isDoctor && !isAdmin
+            },
+            {
+                title: 'List Doctors',
+                path: '/listdoctor',
+                icon: <FaIcons.FaUserLock />,
+                cName: 'nav-text',
+                show: isAdmin
+            },
+            {
+                title: 'List Patients',
+                path: '/listpatient',
+                icon: <AiIcons.AiFillSetting />,
+                cName: 'nav-text',
+                show: isAdmin
+            }
+        ]
+    };
 
     const [sidebar, setSidebar] = useState(false);
     const [sidebarData, setSidebarData] = useState(SidebarData());
     const showSidebar = () => setSidebar(!sidebar);
+    const history = useHistory();
+    let admin;
+    let doctor;
 
     useEffect(() => {
         fetchRoles();
+        return onAuthUIStateChange((nextAuthState, authData) => {
+            console.log('nextAuthState', nextAuthState, authData);
+            if (nextAuthState === 'signedin') {
+                if (admin) {
+                    history.push('/listdoctor');
+                }
+                else if (doctor) {
+                    history.push('/')
+                }
+                else {
+                    history.push('/patient')
+                }
+            }
+        });
     }, [sidebar]);
 
     async function fetchRoles() {
-        const admin = await User.isAdmin();
-        const doctor = await User.isDoctor();
+        admin = await User.isAdmin();
+        doctor = await User.isDoctor();
         const updatedSideBarData = SidebarData(doctor, admin);
         console.log('updatedSideBarData', updatedSideBarData);
         setSidebarData(updatedSideBarData);
@@ -72,7 +93,7 @@ const SideNav = (props) => {
                         </Link>
                     </li>
                     {sidebarData.map((item, index) => {
-                        return ( item.show ?
+                        return (item.show ?
                             <li key={index} className={item.cName}>
                                 <Link to={item.path}>
                                     {item.icon}
