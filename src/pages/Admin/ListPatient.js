@@ -118,8 +118,8 @@ export default function ListPatient() {
       console.error('error deleting patient', e);
       setErrorMessages(e.errors);
     }
+    list();
     alert("Patient Deleted!");
-    history.push("/listpatient")
 
   }
 
@@ -175,7 +175,7 @@ export default function ListPatient() {
         <UpdatePatientModal
           show={updateModalShow}
           patient={singlePatient}
-          onUpdated={() => getPatientInfo(singlePatient.id)}
+          onUpdated={() => list()}
           onHide={() => setUpdateModalShow(false)}
         />
       </Row>
