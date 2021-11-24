@@ -25,7 +25,7 @@ export default function ViewPrescriptionModal(props) {
       const prescriptionFromAPI = apiData.data.listPrescriptions.items;
 
       await Promise.all(prescriptionFromAPI.map(async prescription => {
-      const content = await Storage.get(prescription.fileName,{ level: "private", });
+      const content = await Storage.get(prescription.fileName,{ level: "public", });
       prescription.content = content;
       return prescription;
       }))
@@ -39,7 +39,7 @@ export default function ViewPrescriptionModal(props) {
 
   async function deletePrescription(prescription) {
     await API.graphql({ query: deletePrescriptionMutation, variables: { input: { id: prescription.id } } });
-    await Storage.remove(prescription.fileName,{ level: "private", });
+    await Storage.remove(prescription.fileName,{ level: "public", });
     props.onFetched();
     props.onHide();
   }
@@ -78,7 +78,7 @@ export default function ViewPrescriptionModal(props) {
                     {
                       prescription.content && <a href={prescription.content} download={prescription.fileName}>
                         {
-                          <AmplifyS3Image level="private" imgKey={prescription.fileName} alt={prescription.fileName.slice(prescription.fileName.lastIndexOf('/') + 1)} /> 
+                          <AmplifyS3Image level="public" imgKey={prescription.fileName} alt={prescription.fileName.slice(prescription.fileName.lastIndexOf('/') + 1)} /> 
                         }
                       </a>
                     }

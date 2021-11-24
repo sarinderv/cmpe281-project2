@@ -69,7 +69,7 @@ export default function Patient() {
           const prescriptionFromAPI  = apiData.data.listPrescriptions.items
           await Promise.all(prescriptionFromAPI.map(async prescription => {
             console.log(prescription.fileName);
-            const content = await Storage.get(prescription.fileName,{ level: "private", });
+            const content = await Storage.get(prescription.fileName,{ level: "public", });
             console.log(content);
             prescription.content = content;
             return prescription;
@@ -211,7 +211,7 @@ export default function Patient() {
                       prescription.content && <a href={prescription.content} download={prescription.fileName}>
                         {
                         
-                          <AmplifyS3Image level="private" imgKey={prescription.fileName} alt={prescription.fileName.slice(prescription.fileName.lastIndexOf('/') + 1)} /> 
+                          <AmplifyS3Image level="public" imgKey={prescription.fileName} alt={prescription.fileName.slice(prescription.fileName.lastIndexOf('/') + 1)} /> 
                         }
                       </a>
                     }
