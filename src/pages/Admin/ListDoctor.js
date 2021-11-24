@@ -115,7 +115,7 @@ export default function ListDoctor()
       setErrorMessages(e.errors);
     }
     alert("Doctor Deleted!");
-    history.push("/listdoctor")``
+    history.push("/listdoctor")
 
   }
 
@@ -161,9 +161,9 @@ export default function ListDoctor()
       <UpdateDoctorModal
                   show={updateModalShow}
                   doctor={singleDoctor}
-                  onUpdated={() => getDoctorInfo(singleDoctor.id)}
-                  onHide={() => setUpdateModalShow(false)}
-                />
+        onUpdated={() => getDoctorInfo(singleDoctor.id)}
+        onHide={() => setUpdateModalShow(false)}
+      />
       </Row>
     </Container>
   )

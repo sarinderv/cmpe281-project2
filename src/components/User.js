@@ -24,6 +24,15 @@ export async function userInfo() {
     const admin = await isAdmin();
     const doctor = await isDoctor();
     const username = userData.signInUserSession.accessToken.payload.username;
+
+    if(admin)
+    {
+        return ["Admin", username]
+    }else if(doctor){
+        return ["Doctor", username]
+    }else {
+        return ["Patient", username]
+    }
     return (
         <>
             {username} <div className="badge">{admin ? "Admin" : doctor ? "Doctor" : "Patient"}</div>

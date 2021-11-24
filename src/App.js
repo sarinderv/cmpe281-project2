@@ -46,27 +46,61 @@ function App() {
     User.userInfo().then(str => setUserInfo(str));
   }, []);
 
-  return (
-    <div className="App">
-          <Router>
-            <SideNav />
-            <Switch>
-              <Route path='/' exact component={Doctor} />
-              <Route path='/patient' component={Patient} />
-              <Route path='/createpatient' component={CreatePatient} />
-              <Route path='/createdoctor' component={CreateDoctor} />
-              <Route path="/service" component={Service} />
-              <Route path="/prescription" component={ParsePrescription} />
 
-            {/* Admin Routes */}
-            <Route path='/listdoctor' component={ListDoctor} />
-            <Route path="/listpatient" component={ListPatient} />
-            </Switch>
-          </Router>
-      <hr />
-      { userInfo }
-    </div>
-  );
+  if(userInfo[0] == "Admin")
+  {
+    return (
+      <div className="App">
+            <Router>
+              <SideNav />
+              <Switch>
+              {/* Admin Routes */}
+              <Route path='/listdoctor' component={ListDoctor} />
+              <Route path="/listpatient" component={ListPatient} />
+              </Switch>
+            </Router>
+        <hr />
+        <>
+            {userInfo[1]} <div className="badge">{userInfo[0]}</div>
+        </>
+      </div>
+    );
+  } else if(userInfo[0] == "Doctor")
+  {
+   return( <div className="App">
+            <Router>
+              <SideNav />
+              <Switch>
+              <Route path='/' exact component={Doctor} />
+                <Route path='/createdoctor' component={CreateDoctor} />
+                <Route path="/prescription" component={ParsePrescription} />
+              </Switch>
+            </Router>
+        <hr />
+        <>
+            {userInfo[1]} <div className="badge">{userInfo[0]}</div>
+        </>
+      </div>
+   )
+  }else{
+    return(
+      <div className="App">
+            <Router>
+              <SideNav />
+              <Switch>
+                <Route path='/patient' component={Patient} />
+                <Route path="/prescription" component={ParsePrescription} />
+                <Route path='/createpatient' component={CreatePatient} />
+              </Switch>
+            </Router>
+        <hr />
+        <>
+            {userInfo[1]} <div className="badge">{userInfo[0]}</div>
+        </>
+      </div>
+    )
+  }
+  
 }
 
 export default withAuthenticator(App);
